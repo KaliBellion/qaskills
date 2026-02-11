@@ -40,6 +40,7 @@ interface PublishResult {
     slug: string;
     description: string;
     qualityScore: number;
+    authorName: string;
   };
 }
 
@@ -518,7 +519,7 @@ export default function PublishPage() {
               </Button>
               {publishResult?.skill.slug ? (
                 <Button asChild>
-                  <Link href={`/skills/${publishResult.skill.slug}`}>View Skill</Link>
+                  <Link href={`/skills/${publishResult.skill.authorName}/${publishResult.skill.slug}`}>View Skill</Link>
                 </Button>
               ) : (
                 <Button asChild>
