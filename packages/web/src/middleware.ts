@@ -17,6 +17,8 @@ export default async function middleware(req: NextRequest) {
       const isProtectedRoute = createRouteMatcher([
         '/dashboard(.*)',
         '/api/skills/create(.*)',
+        '/api/skills',
+        '/api/reviews(.*)',
       ]);
 
       const handler = clerkMiddleware(async (auth, request) => {
