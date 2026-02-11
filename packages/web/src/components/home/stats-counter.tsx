@@ -6,7 +6,7 @@ const stats = [
   { label: 'QA Skills', target: 20, suffix: '+' },
   { label: 'Agents Supported', target: 27, suffix: '+' },
   { label: 'Frameworks', target: 15, suffix: '' },
-  { label: 'Installs', target: 11, suffix: 'K+' },
+  { label: 'Installs', target: 584, suffix: '+' },
 ];
 
 function useCountUp(target: number, trigger: boolean) {

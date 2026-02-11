@@ -25,11 +25,11 @@ import { StatsCounter } from '@/components/home/stats-counter';
 import { generateWebsiteJsonLd, generateOrganizationJsonLd } from '@/lib/json-ld';
 
 const featuredSkills = [
-  { rank: 1, name: 'Playwright E2E', slug: 'playwright-e2e', types: ['e2e', 'web'], installs: 3200, quality: 95 },
-  { rank: 2, name: 'Cypress E2E', slug: 'cypress-e2e', types: ['e2e', 'web'], installs: 2800, quality: 92 },
-  { rank: 3, name: 'Jest Unit', slug: 'jest-unit', types: ['unit'], installs: 2400, quality: 90 },
-  { rank: 4, name: 'K6 Performance', slug: 'k6-performance', types: ['performance'], installs: 1900, quality: 88 },
-  { rank: 5, name: 'OWASP Security', slug: 'owasp-security', types: ['security'], installs: 1600, quality: 85 },
+  { rank: 1, name: 'Playwright E2E', slug: 'playwright-e2e', types: ['e2e', 'web'], installs: 86, quality: 92 },
+  { rank: 2, name: 'Jest Unit', slug: 'jest-unit', types: ['unit'], installs: 64, quality: 91 },
+  { rank: 3, name: 'Cypress E2E', slug: 'cypress-e2e', types: ['e2e', 'web'], installs: 58, quality: 90 },
+  { rank: 4, name: 'Agent Browser', slug: 'agent-browser', types: ['e2e', 'visual'], installs: 47, quality: 95 },
+  { rank: 5, name: 'Pytest Patterns', slug: 'pytest-patterns', types: ['unit', 'integration'], installs: 41, quality: 88 },
 ];
 
 export default function HomePage() {
