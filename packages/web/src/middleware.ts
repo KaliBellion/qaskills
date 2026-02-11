@@ -9,6 +9,10 @@ const isProtectedRoute = createRouteMatcher([
 ]);
 
 export default clerkMiddleware(async (auth, request) => {
+  const path = request.nextUrl.pathname;
+  if (path.startsWith('/api/')) {
+    console.log(`🛡️ [v7-hotfix] Middleware running for: ${path} | method: ${request.method}`);
+  }
   if (isPublicWebhook(request)) {
     return;
   }

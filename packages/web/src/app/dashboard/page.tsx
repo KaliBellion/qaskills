@@ -20,8 +20,10 @@ async function getClerkUserId(): Promise<string | null> {
   try {
     const { auth } = await import('@clerk/nextjs/server');
     const { userId } = await auth();
+    console.log('[dashboard] getClerkUserId:', userId ?? 'NULL');
     return userId;
-  } catch {
+  } catch (err) {
+    console.error('[dashboard] getClerkUserId error:', err);
     return null;
   }
 }

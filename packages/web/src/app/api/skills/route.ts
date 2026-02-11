@@ -58,10 +58,15 @@ function calculateQualityScore(data: {
 // POST /api/skills — publish a new skill
 // ---------------------------------------------------------------------------
 export async function POST(request: NextRequest) {
+  console.log('🚀 [v7-hotfix] POST /api/skills hit — the publish train has arrived!');
+  console.log('🍪 [v7-hotfix] Cookie header present:', !!request.headers.get('cookie'));
+  console.log('🔑 [v7-hotfix] Auth header present:', !!request.headers.get('authorization'));
   try {
     // 1. Authenticate
     const user = await getAuthUser();
+    console.log(`🧑 [v7-hotfix] getAuthUser result: ${user ? `GOT USER id=${user.id} name=${user.username}` : 'NULL — auth failed'}`);
     if (!user) {
+      console.error('❌ [v7-hotfix] Returning 401 — user is null. Check logs above for why.');
       return NextResponse.json(
         { error: 'Authentication required. Please sign in to publish a skill.' },
         { status: 401 },
