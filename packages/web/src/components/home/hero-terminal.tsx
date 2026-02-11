@@ -5,10 +5,12 @@ import { Copy, Check } from 'lucide-react';
 
 export function HeroTerminal() {
   const [copied, setCopied] = useState(false);
-  const command = 'npx @qaskills/cli add playwright-e2e';
+  const installCommand = 'npm i -g @qaskills/cli';
+  const addCommand = 'npx @qaskills/cli add playwright-e2e';
+  const allCommands = `${installCommand}\n${addCommand}`;
 
   const handleCopy = async () => {
-    await navigator.clipboard.writeText(command);
+    await navigator.clipboard.writeText(allCommands);
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
   };
@@ -26,7 +28,7 @@ export function HeroTerminal() {
         <button
           onClick={handleCopy}
           className="text-muted-foreground hover:text-foreground transition-colors"
-          aria-label="Copy command"
+          aria-label="Copy commands"
         >
           {copied ? (
             <Check className="h-4 w-4 text-green-500" />
@@ -35,11 +37,23 @@ export function HeroTerminal() {
           )}
         </button>
       </div>
-      {/* Command */}
-      <div className="px-4 py-5 font-mono text-sm sm:text-base">
-        <span className="text-green-400">$</span>{' '}
-        <span className="text-foreground">{command}</span>
-        <span className="animate-blink text-primary ml-0.5">|</span>
+      {/* Commands */}
+      <div className="px-4 py-5 font-mono text-sm sm:text-base space-y-2">
+        <div>
+          <span className="text-muted-foreground text-xs"># Step 1: Install the CLI</span>
+        </div>
+        <div>
+          <span className="text-green-400">$</span>{' '}
+          <span className="text-foreground">{installCommand}</span>
+        </div>
+        <div className="pt-1">
+          <span className="text-muted-foreground text-xs"># Step 2: Add a skill</span>
+        </div>
+        <div>
+          <span className="text-green-400">$</span>{' '}
+          <span className="text-foreground">{addCommand}</span>
+          <span className="animate-blink text-primary ml-0.5">|</span>
+        </div>
       </div>
       {/* Output */}
       <div className="border-t border-border/50 px-4 py-3 font-mono text-xs text-muted-foreground">
