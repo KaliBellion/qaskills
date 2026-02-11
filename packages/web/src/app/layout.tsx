@@ -65,6 +65,14 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <ClerkWrapper>
       <html lang="en" suppressHydrationWarning>
+        <head>
+          <script
+            defer
+            data-website-id="dfid_TEyVnxZ4O5OJH68zC0zzA"
+            data-domain="qaskills.sh"
+            src="https://datafa.st/js/script.js"
+          />
+        </head>
         <body className={`${inter.variable} font-sans antialiased`}>
           <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
             <div className="flex min-h-screen flex-col">
