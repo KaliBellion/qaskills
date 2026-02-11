@@ -1,6 +1,7 @@
 name: CLI Publish
 
 on:
+  workflow_dispatch:
   push:
     tags:
       - 'cli-v*'
