@@ -15,6 +15,7 @@ export function InstallButton({ skillSlug }: InstallButtonProps) {
   const handleCopy = async () => {
     await navigator.clipboard.writeText(command);
     setCopied(true);
+    window?.datafast?.('copy_install_command', { skill: skillSlug });
     setTimeout(() => setCopied(false), 2000);
   };
 

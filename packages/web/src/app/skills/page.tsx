@@ -253,6 +253,8 @@ export default async function SkillsPage({ searchParams }: SkillsPageProps) {
               key={opt.value}
               variant={params.sort === opt.value || (!params.sort && opt.value === 'trending') ? 'default' : 'outline'}
               className="cursor-pointer"
+              data-fast-goal="sort_skills"
+              data-fast-goal-sort-type={opt.value}
             >
               {opt.label}
             </Badge>

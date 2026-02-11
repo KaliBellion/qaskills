@@ -67,6 +67,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <html lang="en" suppressHydrationWarning>
         <head>
           <script
+            id="datafast-queue"
+            dangerouslySetInnerHTML={{
+              __html: `window.datafast=window.datafast||function(){window.datafast.q=window.datafast.q||[];window.datafast.q.push(arguments)};`,
+            }}
+          />
+          <script
             defer
             data-website-id="dfid_TEyVnxZ4O5OJH68zC0zzA"
             data-domain="qaskills.sh"

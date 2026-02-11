@@ -239,7 +239,13 @@ export default async function SkillDetailPage({ params }: SkillPageProps) {
               {skill.githubUrl && (
                 <div className="mt-4 pt-4 border-t border-border">
                   <Button variant="outline" className="w-full" asChild>
-                    <a href={skill.githubUrl} target="_blank" rel="noopener noreferrer">
+                    <a
+                      href={skill.githubUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      data-fast-goal="click_github_repo"
+                      data-fast-goal-skill={skill.slug}
+                    >
                       View on GitHub
                     </a>
                   </Button>

@@ -19,6 +19,7 @@ export function FilterPanel({ activeFacets }: FilterPanelProps) {
   const searchParams = useSearchParams();
 
   const toggleFilter = (key: string, value: string) => {
+    window?.datafast?.('filter_skills', { filter_type: key, filter_value: value });
     const params = new URLSearchParams(searchParams.toString());
     const current = params.getAll(key);
     if (current.includes(value)) {

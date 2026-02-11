@@ -146,6 +146,11 @@ export default function PublishPage() {
 
       setPublishResult(json as PublishResult);
       setCurrentStep(4);
+      window?.datafast?.('skill_published', {
+        skill_name: formData.name,
+        frameworks: formData.frameworks.join(','),
+        testing_types: formData.testingTypes.join(','),
+      });
     } catch (err) {
       setPublishError(
         err instanceof Error ? err.message : 'Network error. Please check your connection and try again.',

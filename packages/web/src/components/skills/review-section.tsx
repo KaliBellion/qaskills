@@ -201,6 +201,7 @@ export function ReviewSection({ skillId }: { skillId: string }) {
 
       // Success
       setSubmitSuccess(true);
+      window?.datafast?.('review_submitted', { skill_id: skillId, rating: String(formRating) });
       setFormRating(0);
       setFormComment('');
       setShowForm(false);

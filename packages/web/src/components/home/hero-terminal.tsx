@@ -12,6 +12,7 @@ export function HeroTerminal() {
   const handleCopy = async () => {
     await navigator.clipboard.writeText(allCommands);
     setCopied(true);
+    window?.datafast?.('copy_hero_command');
     setTimeout(() => setCopied(false), 2000);
   };
 
