@@ -1,28 +1,8 @@
 'use client';
 
 import Link from 'next/link';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Menu, X, Search, Terminal } from 'lucide-react';
-
-let ClerkComponents: {
-  SignInButton: React.ComponentType<{ mode: string; children: React.ReactNode }>;
-  SignedIn: React.ComponentType<{ children: React.ReactNode }>;
-  SignedOut: React.ComponentType<{ children: React.ReactNode }>;
-  UserButton: React.ComponentType<{ afterSignOutUrl: string }>;
-} | null = null;
-
-try {
-  // eslint-disable-next-line @typescript-eslint/no-require-imports
-  const clerk = require('@clerk/nextjs');
-  ClerkComponents = {
-    SignInButton: clerk.SignInButton,
-    SignedIn: clerk.SignedIn,
-    SignedOut: clerk.SignedOut,
-    UserButton: clerk.UserButton,
-  };
-} catch {
-  // Clerk not available
-}
 
 const navLinks = [
   { href: '/skills', label: 'Skills' },
@@ -32,7 +12,26 @@ const navLinks = [
 
 export function Header() {
   const [mobileOpen, setMobileOpen] = useState(false);
-  const hasClerk = !!ClerkComponents && !!process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY;
+  const [clerkLoaded, setClerkLoaded] = useState(false);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const [ClerkUI, setClerkUI] = useState<Record<string, React.ComponentType<any>> | null>(null);
+
+  useEffect(() => {
+    // Only load Clerk components on the client after mount
+    if (process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY) {
+      import('@clerk/nextjs').then((clerk) => {
+        setClerkUI({
+          SignInButton: clerk.SignInButton,
+          SignedIn: clerk.SignedIn,
+          SignedOut: clerk.SignedOut,
+          UserButton: clerk.UserButton,
+        });
+        setClerkLoaded(true);
+      }).catch(() => {
+        // Clerk not available
+      });
+    }
+  }, []);
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
@@ -72,24 +71,24 @@ export function Header() {
             </kbd>
           </Link>
 
-          {hasClerk && ClerkComponents ? (
+          {clerkLoaded && ClerkUI ? (
             <>
-              <ClerkComponents.SignedOut>
-                <ClerkComponents.SignInButton mode="modal">
+              <ClerkUI.SignedOut>
+                <ClerkUI.SignInButton mode="modal">
                   <button className="rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground hover:bg-primary/90 transition-colors">
                     Sign In
                   </button>
-                </ClerkComponents.SignInButton>
-              </ClerkComponents.SignedOut>
-              <ClerkComponents.SignedIn>
+                </ClerkUI.SignInButton>
+              </ClerkUI.SignedOut>
+              <ClerkUI.SignedIn>
                 <Link
                   href="/dashboard"
                   className="hidden sm:block text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
                 >
                   Dashboard
                 </Link>
-                <ClerkComponents.UserButton afterSignOutUrl="/" />
-              </ClerkComponents.SignedIn>
+                <ClerkUI.UserButton afterSignOutUrl="/" />
+              </ClerkUI.SignedIn>
             </>
           ) : (
             <Link
