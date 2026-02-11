@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { useAuth } from '@clerk/nextjs';
 import { ArrowLeft, ArrowRight, Upload, Check, Github, Loader2, AlertCircle } from 'lucide-react';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
@@ -43,6 +44,7 @@ interface PublishResult {
 }
 
 export default function PublishPage() {
+  const { getToken } = useAuth();
   const [currentStep, setCurrentStep] = useState(0);
   const [formData, setFormData] = useState<FormData>({
     name: '',
@@ -112,9 +114,13 @@ export default function PublishPage() {
     setPublishError(null);
 
     try {
+      const token = await getToken();
       const res = await fetch('/api/skills', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+          'Content-Type': 'application/json',
+          ...(token ? { Authorization: `Bearer ${token}` } : {}),
+        },
         body: JSON.stringify({
           name: formData.name,
           description: formData.description,
