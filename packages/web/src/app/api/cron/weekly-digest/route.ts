@@ -71,6 +71,7 @@ export async function GET(request: NextRequest) {
     // Get users who want weekly digest
     const subscribers = await db
       .select({
+        userId: users.id,
         email: users.email,
         username: users.username,
       })
@@ -96,7 +97,7 @@ export async function GET(request: NextRequest) {
       const results = await Promise.allSettled(
         batch.map((subscriber) =>
           sendWeeklyDigest(
-            { email: subscriber.email, username: subscriber.username },
+            { email: subscriber.email, username: subscriber.username, userId: subscriber.userId },
             topSkills,
           ),
         ),

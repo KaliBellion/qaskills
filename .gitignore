@@ -53,3 +53,12 @@ progress.md
 PROGRESS.md
 TESTING_GUIDE.md
 test-local.sh
+
+# Local working files
+medium-article.md
+TEST_RESULTS.md
+DIFF_*.md
+PR_*.md
+QUICKSTART_*.md
+test.spec.js
+scripts/

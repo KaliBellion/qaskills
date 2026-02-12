@@ -18,6 +18,7 @@ interface NewSkillAlertProps {
   skillAuthor: string;
   skillSlug: string;
   authorName: string;
+  unsubscribeUrl?: string;
 }
 
 export default function NewSkillAlert({
@@ -26,6 +27,7 @@ export default function NewSkillAlert({
   skillAuthor,
   skillSlug,
   authorName,
+  unsubscribeUrl,
 }: NewSkillAlertProps) {
   // UTM parameters for tracking
   const utmParams = '?utm_source=email&utm_medium=skill_alert&utm_campaign=new_skill';
@@ -66,7 +68,10 @@ export default function NewSkillAlert({
               Update Email Preferences
             </Link>{' '}
             |{' '}
-            <Link href={`https://qaskills.sh/unsubscribe${utmParams}`} style={link}>
+            <Link
+              href={unsubscribeUrl || `https://qaskills.sh/unsubscribe${utmParams}`}
+              style={link}
+            >
               Unsubscribe
             </Link>
           </Text>

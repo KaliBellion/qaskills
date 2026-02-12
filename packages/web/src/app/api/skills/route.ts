@@ -158,6 +158,7 @@ export async function POST(request: NextRequest) {
     if (process.env.RESEND_API_KEY) {
       // Query users who want new skill alerts
       db.select({
+        userId: users.id,
         email: users.email,
         username: users.username,
       })
@@ -178,7 +179,11 @@ export async function POST(request: NextRequest) {
             await Promise.allSettled(
               batch.map((subscriber) =>
                 sendNewSkillAlert(
-                  { email: subscriber.email, username: subscriber.username },
+                  {
+                    email: subscriber.email,
+                    username: subscriber.username,
+                    userId: subscriber.userId,
+                  },
                   {
                     name: created.name,
                     description: created.description,

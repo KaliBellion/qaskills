@@ -1,11 +1,15 @@
 import { resend, FROM_EMAIL } from './client';
+import { generateUnsubscribeToken } from './unsubscribe-token';
 import WelcomeEmail from '@/emails/welcome';
 import NewSkillAlert from '@/emails/new-skill-alert';
 import WeeklyDigest from '@/emails/weekly-digest';
 
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://qaskills.sh';
+
 interface User {
   email: string;
   username: string;
+  userId?: string;
 }
 
 interface Skill {
@@ -18,6 +22,14 @@ interface Skill {
   authorName: string;
 }
 
+function buildUnsubscribeUrl(userId: string | undefined, type: string): string {
+  if (!userId) {
+    return `${SITE_URL}/unsubscribe`;
+  }
+  const token = generateUnsubscribeToken(userId);
+  return `${SITE_URL}/unsubscribe?token=${encodeURIComponent(token)}&type=${type}`;
+}
+
 /**
  * Send welcome email to new user
  */
@@ -28,11 +40,13 @@ export async function sendWelcomeEmail(user: User) {
       return { success: false, error: 'Email service not configured' };
     }
 
+    const unsubscribeUrl = buildUnsubscribeUrl(user.userId, 'all');
+
     const { data, error } = await resend.emails.send({
       from: FROM_EMAIL,
       to: user.email,
       subject: 'Welcome to QASkills.sh! 🎉',
-      react: WelcomeEmail({ username: user.username }),
+      react: WelcomeEmail({ username: user.username, unsubscribeUrl }),
     });
 
     if (error) {
@@ -58,6 +72,8 @@ export async function sendNewSkillAlert(user: User, skill: Skill) {
       return { success: false, error: 'Email service not configured' };
     }
 
+    const unsubscribeUrl = buildUnsubscribeUrl(user.userId, 'alerts');
+
     const { data, error } = await resend.emails.send({
       from: FROM_EMAIL,
       to: user.email,
@@ -68,6 +84,7 @@ export async function sendNewSkillAlert(user: User, skill: Skill) {
         skillAuthor: skill.author,
         skillSlug: skill.slug,
         authorName: skill.authorName,
+        unsubscribeUrl,
       }),
     });
 
@@ -97,11 +114,13 @@ export async function sendWeeklyDigest(user: User, skills: Skill[]) {
     const weekNumber = getWeekNumber(now);
     const year = now.getFullYear();
 
+    const unsubscribeUrl = buildUnsubscribeUrl(user.userId, 'weekly');
+
     const { data, error } = await resend.emails.send({
       from: FROM_EMAIL,
       to: user.email,
       subject: `QASkills Weekly Digest - Week ${weekNumber}, ${year}`,
-      react: WeeklyDigest({ skills, weekNumber, year }),
+      react: WeeklyDigest({ skills, weekNumber, year, unsubscribeUrl }),
     });
 
     if (error) {

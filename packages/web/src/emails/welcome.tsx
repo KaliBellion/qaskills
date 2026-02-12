@@ -14,9 +14,10 @@ import {
 
 interface WelcomeEmailProps {
   username: string;
+  unsubscribeUrl?: string;
 }
 
-export default function WelcomeEmail({ username }: WelcomeEmailProps) {
+export default function WelcomeEmail({ username, unsubscribeUrl }: WelcomeEmailProps) {
   // UTM parameters for tracking email clicks
   const utmParams = '?utm_source=email&utm_medium=welcome&utm_campaign=user_onboarding';
 
@@ -74,6 +75,15 @@ export default function WelcomeEmail({ username }: WelcomeEmailProps) {
             <Link href={`https://qaskills.sh${utmParams}`} style={link}>
               Visit Website
             </Link>
+            {unsubscribeUrl && (
+              <>
+                {' '}
+                |{' '}
+                <Link href={unsubscribeUrl} style={link}>
+                  Unsubscribe
+                </Link>
+              </>
+            )}
           </Text>
         </Container>
       </Body>

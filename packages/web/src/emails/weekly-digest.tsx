@@ -25,9 +25,15 @@ interface WeeklyDigestProps {
   skills: Skill[];
   weekNumber: number;
   year: number;
+  unsubscribeUrl?: string;
 }
 
-export default function WeeklyDigest({ skills, weekNumber, year }: WeeklyDigestProps) {
+export default function WeeklyDigest({
+  skills,
+  weekNumber,
+  year,
+  unsubscribeUrl,
+}: WeeklyDigestProps) {
   // UTM parameters for tracking
   const utmParams = '?utm_source=email&utm_medium=weekly_digest&utm_campaign=engagement';
 
@@ -79,7 +85,10 @@ export default function WeeklyDigest({ skills, weekNumber, year }: WeeklyDigestP
               Update Email Preferences
             </Link>{' '}
             |{' '}
-            <Link href={`https://qaskills.sh/unsubscribe${utmParams}`} style={link}>
+            <Link
+              href={unsubscribeUrl || `https://qaskills.sh/unsubscribe${utmParams}`}
+              style={link}
+            >
               Unsubscribe
             </Link>
           </Text>

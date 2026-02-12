@@ -1,13 +1,7 @@
-import Link from 'next/link';
-import { Package, Download, ArrowRight } from 'lucide-react';
-import { Card, CardContent, CardFooter, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
-import { Button } from '@/components/ui/button';
-import { InstallButton } from '@/components/skills/install-button';
-import { formatNumber } from '@/lib/utils';
 import { db } from '@/db';
 import { skills } from '@/db/schema';
 import { sql } from 'drizzle-orm';
+import { PacksGrid } from '@/components/packs/packs-grid';
 
 export const metadata = {
   title: 'Skill Packs',
@@ -180,42 +174,7 @@ export default async function PacksPage() {
         </p>
       </div>
 
-      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-        {packs.map((pack) => (
-          <Card key={pack.slug} className="flex flex-col">
-            <CardHeader>
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-2">
-                  <Package className="h-5 w-5 text-primary" />
-                  {pack.featured && <Badge variant="success" className="text-xs">Featured</Badge>}
-                </div>
-                <span className="text-sm text-muted-foreground flex items-center gap-1">
-                  <Download className="h-3 w-3" /> {formatNumber(pack.installs)}
-                </span>
-              </div>
-              <CardTitle className="mt-2">{pack.name}</CardTitle>
-              <CardDescription>{pack.description}</CardDescription>
-            </CardHeader>
-            <CardContent className="flex-1">
-              <div className="space-y-2">
-                <p className="text-xs font-medium text-muted-foreground uppercase">
-                  {pack.skillCount} Skills Included
-                </p>
-                <div className="flex flex-wrap gap-1.5">
-                  {pack.skills.map((s) => (
-                    <Badge key={s} variant="outline" className="text-xs">
-                      {s}
-                    </Badge>
-                  ))}
-                </div>
-              </div>
-            </CardContent>
-            <CardFooter className="flex-col gap-3">
-              <InstallButton skillSlug={pack.slug} />
-            </CardFooter>
-          </Card>
-        ))}
-      </div>
+      <PacksGrid packs={packs} />
     </div>
   );
 }

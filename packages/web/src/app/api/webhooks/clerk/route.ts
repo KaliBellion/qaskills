@@ -38,7 +38,7 @@ export async function POST(req: NextRequest) {
         }).onConflictDoNothing();
 
         // Send welcome email (non-blocking)
-        sendWelcomeEmail({ email, username }).catch((error) =>
+        sendWelcomeEmail({ email, username, userId: result[0].id }).catch((error) =>
           console.error('Failed to send welcome email:', error),
         );
       }

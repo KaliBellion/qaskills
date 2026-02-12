@@ -1,43 +1,80 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { Suspense, useState, useEffect } from 'react';
+import { useSearchParams } from 'next/navigation';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { CheckCircle, AlertCircle } from 'lucide-react';
 import Link from 'next/link';
 
+const TYPE_LABELS: Record<string, string> = {
+  all: 'all QASkills.sh emails',
+  weekly: 'the weekly digest',
+  alerts: 'new skill alerts',
+};
+
 export default function UnsubscribePage() {
+  return (
+    <Suspense
+      fallback={
+        <div className="mx-auto max-w-2xl px-4 py-16">
+          <Card>
+            <CardHeader className="text-center">
+              <div className="mx-auto mb-4 h-12 w-12 animate-spin rounded-full border-4 border-primary border-t-transparent" />
+              <CardTitle>Unsubscribe from Emails</CardTitle>
+              <CardDescription>Processing your request...</CardDescription>
+            </CardHeader>
+          </Card>
+        </div>
+      }
+    >
+      <UnsubscribeContent />
+    </Suspense>
+  );
+}
+
+function UnsubscribeContent() {
+  const searchParams = useSearchParams();
+  const token = searchParams.get('token');
+  const type = searchParams.get('type') || 'all';
+
   const [status, setStatus] = useState<'loading' | 'success' | 'error'>('loading');
   const [message, setMessage] = useState('Processing your request...');
 
   useEffect(() => {
-    // In a real implementation, you would:
-    // 1. Get a signed token from URL query params
-    // 2. Verify the token on the server
-    // 3. Update user preferences to disable all email notifications
-    // For now, we'll simulate this
+    if (!token) {
+      setStatus('error');
+      setMessage('Invalid unsubscribe link. No token was provided.');
+      return;
+    }
 
     const unsubscribe = async () => {
       try {
-        // Simulate API call
-        await new Promise((resolve) => setTimeout(resolve, 1000));
+        const res = await fetch('/api/unsubscribe', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ token, type }),
+        });
 
-        // In production, you'd call the API with the token
-        // const res = await fetch('/api/unsubscribe', {
-        //   method: 'POST',
-        //   body: JSON.stringify({ token }),
-        // });
+        const data = await res.json();
 
+        if (!res.ok) {
+          setStatus('error');
+          setMessage(data.error || 'Failed to process your unsubscribe request.');
+          return;
+        }
+
+        const label = TYPE_LABELS[type] || TYPE_LABELS.all;
         setStatus('success');
-        setMessage('You have been successfully unsubscribed from all QASkills.sh emails.');
-      } catch (error) {
+        setMessage(`You have been successfully unsubscribed from ${label}.`);
+      } catch {
         setStatus('error');
         setMessage('Failed to process your unsubscribe request. Please try again later.');
       }
     };
 
     unsubscribe();
-  }, []);
+  }, [token, type]);
 
   return (
     <div className="mx-auto max-w-2xl px-4 py-16">
@@ -124,3 +161,4 @@ export default function UnsubscribePage() {
     </div>
   );
 }
+

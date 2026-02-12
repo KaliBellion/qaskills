@@ -1,7 +1,8 @@
-import { Download, Star, Trophy, TrendingUp, Flame, Clock } from 'lucide-react';
+import { Download, Trophy } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { QualityBadge } from '@/components/skills/quality-badge';
+import { FilterTabs, type Tab } from '@/components/leaderboard/filter-tabs';
 import Link from 'next/link';
 import { formatNumber } from '@/lib/utils';
 import { db } from '@/db';
@@ -20,11 +21,11 @@ export const revalidate = 300;
 // Force dynamic rendering to ensure filter params work
 export const dynamic = 'force-dynamic';
 
-const tabs = [
-  { id: 'all', label: 'All Time', icon: Trophy },
-  { id: 'trending', label: 'Trending', icon: TrendingUp },
-  { id: 'hot', label: 'Hot', icon: Flame },
-  { id: 'new', label: 'New', icon: Clock },
+const tabs: Tab[] = [
+  { id: 'all', label: 'All Time', icon: 'Trophy' },
+  { id: 'trending', label: 'Trending', icon: 'TrendingUp' },
+  { id: 'hot', label: 'Hot', icon: 'Flame' },
+  { id: 'new', label: 'New', icon: 'Clock' },
 ];
 
 async function getLeaderboardData(filter: string = 'all') {
@@ -80,26 +81,7 @@ export default async function LeaderboardPage({
       </div>
 
       {/* Tabs */}
-      <div className="mb-6 flex gap-2">
-        {tabs.map((tab) => {
-          const isActive = filter === tab.id;
-          const href = tab.id === 'all' ? '/leaderboard' : `/leaderboard?filter=${tab.id}`;
-          return (
-            <Link
-              key={tab.id}
-              href={href}
-            >
-              <Badge
-                variant={isActive ? 'default' : 'outline'}
-                className="cursor-pointer flex items-center gap-1.5 px-3 py-1.5"
-              >
-                <tab.icon className="h-3 w-3" />
-                {tab.label}
-              </Badge>
-            </Link>
-          );
-        })}
-      </div>
+      <FilterTabs tabs={tabs} activeFilter={filter} />
 
       {/* Top 3 */}
       <div className="grid gap-4 md:grid-cols-3 mb-8">
