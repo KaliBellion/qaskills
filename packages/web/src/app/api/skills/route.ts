@@ -1,9 +1,10 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { z } from 'zod';
 import { db } from '@/db';
-import { skills, users } from '@/db/schema';
+import { skills, users, userPreferences } from '@/db/schema';
 import { desc, eq, ilike, sql, and, or, type SQL } from 'drizzle-orm';
 import { getAuthUser } from '@/lib/api-auth';
+import { sendNewSkillAlert } from '@/lib/email/send';
 
 // ---------------------------------------------------------------------------
 // Validation schema for skill creation
@@ -153,7 +154,53 @@ export async function POST(request: NextRequest) {
       console.error('Failed to update skillsPublished count:', updateErr);
     }
 
-    // 8. Return the created skill
+    // 8. Send new skill alerts to opted-in users (non-blocking)
+    if (process.env.RESEND_API_KEY) {
+      // Query users who want new skill alerts
+      db.select({
+        email: users.email,
+        username: users.username,
+      })
+        .from(users)
+        .innerJoin(userPreferences, eq(users.id, userPreferences.userId))
+        .where(
+          and(
+            eq(userPreferences.emailNotifications, true),
+            eq(userPreferences.newSkillAlerts, true),
+          ),
+        )
+        .then(async (subscribers) => {
+          console.log(`📧 Sending new skill alert to ${subscribers.length} subscribers`);
+          // Send emails in batches to avoid overwhelming the email service
+          const batchSize = 10;
+          for (let i = 0; i < subscribers.length; i += batchSize) {
+            const batch = subscribers.slice(i, i + batchSize);
+            await Promise.allSettled(
+              batch.map((subscriber) =>
+                sendNewSkillAlert(
+                  { email: subscriber.email, username: subscriber.username },
+                  {
+                    name: created.name,
+                    description: created.description,
+                    author: user.username,
+                    slug: created.slug,
+                    installCount: 0,
+                    qualityScore: created.qualityScore,
+                    authorName: created.authorName,
+                  },
+                ),
+              ),
+            );
+            // Wait 1 second between batches
+            if (i + batchSize < subscribers.length) {
+              await new Promise((resolve) => setTimeout(resolve, 1000));
+            }
+          }
+        })
+        .catch((error) => console.error('Failed to send new skill alerts:', error));
+    }
+
+    // 9. Return the created skill
     return NextResponse.json(
       {
         skill: {

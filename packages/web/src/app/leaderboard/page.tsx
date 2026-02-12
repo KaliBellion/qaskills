@@ -6,13 +6,19 @@ import Link from 'next/link';
 import { formatNumber } from '@/lib/utils';
 import { db } from '@/db';
 import { skills } from '@/db/schema';
-import { desc } from 'drizzle-orm';
+import { desc, sql } from 'drizzle-orm';
 
 export const metadata = {
   title: 'Leaderboard',
   description:
     'Top QA skills from 45+ curated testing skills ranked by installs, quality score, and trending activity. See which testing skills AI agents use most.',
 };
+
+// Revalidate every 5 minutes
+export const revalidate = 300;
+
+// Force dynamic rendering to ensure filter params work
+export const dynamic = 'force-dynamic';
 
 const tabs = [
   { id: 'all', label: 'All Time', icon: Trophy },
@@ -21,24 +27,50 @@ const tabs = [
   { id: 'new', label: 'New', icon: Clock },
 ];
 
-async function getLeaderboardData() {
+async function getLeaderboardData(filter: string = 'all') {
   try {
-    const [allTime, trending, newest] = await Promise.all([
-      db.select().from(skills).orderBy(desc(skills.installCount)).limit(20),
-      db.select().from(skills).orderBy(desc(skills.weeklyInstalls)).limit(20),
-      db.select().from(skills).orderBy(desc(skills.createdAt)).limit(20),
-    ]);
-    return { allTime, trending, newest };
+    // Apply sorting based on filter
+    switch (filter) {
+      case 'trending':
+        return await db
+          .select()
+          .from(skills)
+          .orderBy(desc(skills.weeklyInstalls), desc(skills.createdAt))
+          .limit(20);
+      case 'hot':
+        // Hot = weighted score: 70% installs + 30% quality
+        return await db
+          .select()
+          .from(skills)
+          .orderBy(desc(sql`(${skills.installCount} * 0.7 + ${skills.qualityScore} * 0.3)`))
+          .limit(20);
+      case 'new':
+        return await db
+          .select()
+          .from(skills)
+          .orderBy(desc(skills.createdAt))
+          .limit(20);
+      case 'all':
+      default:
+        return await db
+          .select()
+          .from(skills)
+          .orderBy(desc(skills.installCount))
+          .limit(20);
+    }
   } catch {
-    return { allTime: [], trending: [], newest: [] };
+    return [];
   }
 }
 
-export default async function LeaderboardPage() {
-  const { allTime, trending, newest } = await getLeaderboardData();
-
-  // Default view is "All Time" sorted by installCount
-  const leaderboardData = allTime;
+export default async function LeaderboardPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ filter?: string }>;
+}) {
+  const params = await searchParams;
+  const filter = params?.filter || 'all';
+  const leaderboardData = await getLeaderboardData(filter);
 
   return (
     <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
@@ -49,16 +81,25 @@ export default async function LeaderboardPage() {
 
       {/* Tabs */}
       <div className="mb-6 flex gap-2">
-        {tabs.map((tab) => (
-          <Badge
-            key={tab.id}
-            variant={tab.id === 'all' ? 'default' : 'outline'}
-            className="cursor-pointer flex items-center gap-1.5 px-3 py-1.5"
-          >
-            <tab.icon className="h-3 w-3" />
-            {tab.label}
-          </Badge>
-        ))}
+        {tabs.map((tab) => {
+          const isActive = filter === tab.id;
+          const href = tab.id === 'all' ? '/leaderboard' : `/leaderboard?filter=${tab.id}`;
+          return (
+            <Link
+              key={tab.id}
+              href={href}
+              onClick={() => window?.datafast?.('leaderboard_filter_click', { filter: tab.id })}
+            >
+              <Badge
+                variant={isActive ? 'default' : 'outline'}
+                className="cursor-pointer flex items-center gap-1.5 px-3 py-1.5"
+              >
+                <tab.icon className="h-3 w-3" />
+                {tab.label}
+              </Badge>
+            </Link>
+          );
+        })}
       </div>
 
       {/* Top 3 */}
