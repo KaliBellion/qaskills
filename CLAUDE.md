@@ -59,17 +59,17 @@ The single source of truth for the type system. All other packages depend on it.
 ### Web App (`packages/web`)
 Next.js 15 with App Router, React 19, TailwindCSS v4, shadcn/ui (Radix primitives).
 
-**Stack:** Neon Postgres (Drizzle ORM) / Typesense (search) / Upstash Redis (cache) / Clerk (auth) / PostHog (analytics)
+**Stack:** Neon Postgres (Drizzle ORM) / Typesense (search) / Upstash Redis (cache) / Clerk (auth) / PostHog (analytics) / Resend (email)
 
 **Key patterns:**
 - Database uses a lazy Proxy in `src/db/index.ts` — initialized on first access, not at import time
-- Clerk middleware is dynamically imported and only activated when env vars are set (`src/middleware.ts`), preventing SSR crashes without credentials
+- Clerk middleware in `src/middleware.ts` protects routes directly via `clerkMiddleware` + `createRouteMatcher`
 - Protected routes: `/dashboard(.*)`, `/api/skills/create(.*)`, `/api/reviews(.*)`
 - Public webhooks: `/api/webhooks(.*)` (bypasses auth)
-- Drizzle schema lives in `src/db/schema/`, migrations in `src/db/migrations/`
+- Drizzle schema lives in `src/db/schema/` (skills, users, userPreferences, categories, relations), migrations in `src/db/migrations/`
 - Drizzle config: `drizzle.config.ts` at package root
 
-**API routes:** `src/app/api/` — Skills CRUD (`/api/skills`, `/api/skills/[id]` with search/sort/pagination), categories, reviews, leaderboard, telemetry/install, Clerk webhooks
+**API routes:** `src/app/api/` — Skills CRUD (`/api/skills`, `/api/skills/[id]` with search/sort/pagination), categories, reviews, leaderboard, telemetry/install, user preferences, Clerk webhooks, cron/weekly-digest (Vercel Cron, sends Resend emails to opted-in users)
 
 ### CLI (`packages/cli`)
 - `src/commands/` — One file per command (add, search, init, list, remove, update, info, publish)

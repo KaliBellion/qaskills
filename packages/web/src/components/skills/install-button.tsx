@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { Copy, Check, Terminal } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { SignupGate } from '@/components/auth/signup-gate';
 
 interface InstallButtonProps {
   skillSlug: string;
@@ -20,14 +21,31 @@ export function InstallButton({ skillSlug }: InstallButtonProps) {
   };
 
   return (
-    <div className="flex items-center gap-2">
-      <div className="flex items-center gap-2 rounded-md border border-border bg-muted px-3 py-2 font-mono text-sm flex-1">
-        <Terminal className="h-4 w-4 text-muted-foreground shrink-0" />
-        <code className="truncate">{command}</code>
+    <SignupGate
+      feature="install_instructions"
+      title="Sign in to view installation instructions"
+      description="Create a free account to access CLI commands and install this skill."
+      fallback={
+        <div className="flex items-center gap-2 opacity-50 pointer-events-none blur-sm">
+          <div className="flex items-center gap-2 rounded-md border border-border bg-muted px-3 py-2 font-mono text-sm flex-1">
+            <Terminal className="h-4 w-4 text-muted-foreground shrink-0" />
+            <code className="truncate">npx @qaskills/cli add ***</code>
+          </div>
+          <Button variant="outline" size="icon" disabled>
+            <Copy className="h-4 w-4" />
+          </Button>
+        </div>
+      }
+    >
+      <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2 rounded-md border border-border bg-muted px-3 py-2 font-mono text-sm flex-1">
+          <Terminal className="h-4 w-4 text-muted-foreground shrink-0" />
+          <code className="truncate">{command}</code>
+        </div>
+        <Button variant="outline" size="icon" onClick={handleCopy} aria-label="Copy install command">
+          {copied ? <Check className="h-4 w-4 text-green-600" /> : <Copy className="h-4 w-4" />}
+        </Button>
       </div>
-      <Button variant="outline" size="icon" onClick={handleCopy} aria-label="Copy install command">
-        {copied ? <Check className="h-4 w-4 text-green-600" /> : <Copy className="h-4 w-4" />}
-      </Button>
-    </div>
+    </SignupGate>
   );
 }

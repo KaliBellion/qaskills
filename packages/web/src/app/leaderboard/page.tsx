@@ -88,7 +88,6 @@ export default async function LeaderboardPage({
             <Link
               key={tab.id}
               href={href}
-              onClick={() => window?.datafast?.('leaderboard_filter_click', { filter: tab.id })}
             >
               <Badge
                 variant={isActive ? 'default' : 'outline'}
