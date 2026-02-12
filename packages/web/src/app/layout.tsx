@@ -15,7 +15,7 @@ export const metadata: Metadata = {
     template: '%s | QASkills.sh',
   },
   description:
-    'Install curated QA testing skills into Claude Code, Cursor, Copilot, Windsurf, and 27+ AI coding agents. By The Testing Academy.',
+    'Install curated QA testing skills into Claude Code, Cursor, Copilot, Windsurf, and 30+ AI coding agents. By The Testing Academy.',
   keywords: [
     'QA',
     'testing',
@@ -38,7 +38,7 @@ export const metadata: Metadata = {
     siteName: 'QASkills.sh',
     title: 'QASkills.sh — The QA Skills Directory for AI Agents',
     description:
-      'Install curated QA testing skills into 27+ AI coding agents. One command. Instant expertise.',
+      'Install curated QA testing skills into 30+ AI coding agents. One command. Instant expertise.',
     images: [
       {
         url: '/api/og?title=QASkills.sh&description=The+QA+Skills+Directory+for+AI+Agents',
@@ -51,7 +51,7 @@ export const metadata: Metadata = {
   twitter: {
     card: 'summary_large_image',
     title: 'QASkills.sh — The QA Skills Directory for AI Agents',
-    description: 'Install curated QA testing skills into 27+ AI coding agents.',
+    description: 'Install curated QA testing skills into 30+ AI coding agents.',
     images: ['/api/og?title=QASkills.sh&description=The+QA+Skills+Directory+for+AI+Agents'],
     creator: '@tabordasolutions',
   },

@@ -11,7 +11,7 @@ import { desc } from 'drizzle-orm';
 export const metadata = {
   title: 'Leaderboard',
   description:
-    'Top QA skills ranked by installs, quality score, and trending activity. See which testing skills AI agents use most.',
+    'Top QA skills from 45+ curated testing skills ranked by installs, quality score, and trending activity. See which testing skills AI agents use most.',
 };
 
 const tabs = [
@@ -44,7 +44,7 @@ export default async function LeaderboardPage() {
     <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
       <div className="mb-8">
         <h1 className="text-3xl font-bold">Leaderboard</h1>
-        <p className="mt-2 text-muted-foreground">Top QA skills ranked by installs and quality</p>
+        <p className="mt-2 text-muted-foreground">Top QA skills from 45+ curated skills ranked by installs and quality</p>
       </div>
 
       {/* Tabs */}

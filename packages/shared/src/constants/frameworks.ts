@@ -14,6 +14,9 @@ export const FRAMEWORKS = [
   { id: 'pact', name: 'Pact', slug: 'pact', description: 'Contract testing framework', icon: '🤝', color: '#08B7AA' },
   { id: 'gatling', name: 'Gatling', slug: 'gatling', description: 'Scala-based load testing', icon: '🎯', color: '#FF6600' },
   { id: 'locust', name: 'Locust', slug: 'locust', description: 'Python load testing framework', icon: '🦗', color: '#46962B' },
+  { id: 'vitest', name: 'Vitest', slug: 'vitest', description: 'Vite-native testing framework', icon: '⚡', color: '#729B1B' },
+  { id: 'webdriverio', name: 'WebdriverIO', slug: 'webdriverio', description: 'Next-gen browser automation', icon: '🤖', color: '#EA5906' },
+  { id: 'testcafe', name: 'TestCafe', slug: 'testcafe', description: 'Node.js E2E testing framework', icon: '🏰', color: '#36B6E5' },
 ] as const;
 
 export const FRAMEWORK_IDS = FRAMEWORKS.map((f) => f.id);

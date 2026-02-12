@@ -3,10 +3,10 @@
 import { useEffect, useRef, useState } from 'react';
 
 const stats = [
-  { label: 'QA Skills', target: 20, suffix: '+' },
-  { label: 'Agents Supported', target: 27, suffix: '+' },
-  { label: 'Frameworks', target: 15, suffix: '' },
-  { label: 'Installs', target: 584, suffix: '+' },
+  { label: 'QA Skills', target: 47, suffix: '+' },
+  { label: 'Agents Supported', target: 30, suffix: '+' },
+  { label: 'Frameworks', target: 18, suffix: '+' },
+  { label: 'Installs', target: 1250, suffix: '+' },
 ];
 
 function useCountUp(target: number, trigger: boolean) {

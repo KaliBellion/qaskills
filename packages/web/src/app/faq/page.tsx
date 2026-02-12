@@ -15,7 +15,7 @@ const faqs = [
     questions: [
       {
         q: 'What is QASkills.sh?',
-        a: 'QASkills.sh is an open source directory of curated QA testing skills designed for AI coding agents. You can install these skills into Claude Code, Cursor, Copilot, and 27+ other AI agents to give them expert QA knowledge.',
+        a: 'QASkills.sh is an open source directory of curated QA testing skills designed for AI coding agents. You can install these skills into Claude Code, Cursor, Copilot, and 30+ other AI agents to give them expert QA knowledge.',
       },
       {
         q: 'Is QASkills.sh free?',
@@ -36,7 +36,7 @@ const faqs = [
       },
       {
         q: 'What AI agents are supported?',
-        a: 'We support 27+ agents including Claude Code, Cursor, GitHub Copilot, Windsurf, Codex CLI, Aider, Continue, Cline, Zed, Bolt.new, Lovable, v0, Devin, Sourcegraph Cody, JetBrains AI, and more.',
+        a: 'We support 30+ agents including Claude Code, Cursor, GitHub Copilot, Windsurf, Codex CLI, Aider, Continue, Cline, Zed, Bolt.new, Lovable, v0, Devin, Sourcegraph Cody, JetBrains AI, and more.',
       },
       {
         q: 'Do I need Node.js?',

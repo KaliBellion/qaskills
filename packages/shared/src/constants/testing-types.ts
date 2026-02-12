@@ -14,6 +14,9 @@ export const TESTING_TYPES = [
   { id: 'bdd', name: 'BDD Testing', slug: 'bdd', description: 'Behavior-driven development with Gherkin', icon: '📝', color: '#84CC16' },
   { id: 'database', name: 'Database Testing', slug: 'database', description: 'Data integrity and migration testing', icon: '🗄️', color: '#A855F7' },
   { id: 'compliance', name: 'Compliance Testing', slug: 'compliance', description: 'Regulatory and standards compliance', icon: '✅', color: '#22C55E' },
+  { id: 'browser-automation', name: 'Browser Automation', slug: 'browser-automation', description: 'Programmatic browser control and web scraping', icon: '🌐', color: '#3B82F6' },
+  { id: 'tdd', name: 'TDD', slug: 'tdd', description: 'Test-driven development practices', icon: '🔴', color: '#DC2626' },
+  { id: 'code-quality', name: 'Code Quality', slug: 'code-quality', description: 'Static analysis, linting, and code quality tools', icon: '✨', color: '#8B5CF6' },
 ] as const;
 
 export const TESTING_TYPE_IDS = TESTING_TYPES.map((t) => t.id);

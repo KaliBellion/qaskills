@@ -122,7 +122,7 @@ export default function HowToPublishPage() {
           How to Publish a Skill
         </h1>
         <p className="mt-4 text-lg text-muted-foreground max-w-2xl mx-auto">
-          Share your QA expertise with 27+ AI agents. Create a SKILL.md, validate it, and publish
+          Share your QA expertise with 30+ AI agents. Create a SKILL.md, validate it, and publish
           to the directory.
         </p>
       </div>

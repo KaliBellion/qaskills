@@ -21,7 +21,7 @@ const plans = [
     features: [
       'Browse & search all skills',
       'Install unlimited skills via CLI',
-      'Auto-detect 27+ AI agents',
+      'Auto-detect 30+ AI agents',
       'Filter by framework, type & language',
       'Community support via GitHub',
     ],

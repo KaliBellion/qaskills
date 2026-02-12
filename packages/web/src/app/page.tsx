@@ -26,10 +26,13 @@ import { generateWebsiteJsonLd, generateOrganizationJsonLd } from '@/lib/json-ld
 
 const featuredSkills = [
   { rank: 1, name: 'Playwright E2E', slug: 'playwright-e2e', types: ['e2e', 'web'], installs: 86, quality: 92 },
-  { rank: 2, name: 'Jest Unit', slug: 'jest-unit', types: ['unit'], installs: 64, quality: 91 },
-  { rank: 3, name: 'Cypress E2E', slug: 'cypress-e2e', types: ['e2e', 'web'], installs: 58, quality: 90 },
-  { rank: 4, name: 'Agent Browser', slug: 'agent-browser', types: ['e2e', 'visual'], installs: 47, quality: 95 },
-  { rank: 5, name: 'Pytest Patterns', slug: 'pytest-patterns', types: ['unit', 'integration'], installs: 41, quality: 88 },
+  { rank: 2, name: 'Agent Browser', slug: 'agent-browser', types: ['browser-automation'], installs: 72, quality: 95 },
+  { rank: 3, name: 'Browser Use', slug: 'browser-use', types: ['browser-automation'], installs: 68, quality: 94 },
+  { rank: 4, name: 'Web App Testing', slug: 'webapp-testing', types: ['e2e', 'web'], installs: 65, quality: 93 },
+  { rank: 5, name: 'Jest Unit', slug: 'jest-unit', types: ['unit'], installs: 64, quality: 91 },
+  { rank: 6, name: 'Test Driven Development', slug: 'test-driven-development', types: ['tdd'], installs: 61, quality: 92 },
+  { rank: 7, name: 'Code Review Excellence', slug: 'code-review-excellence', types: ['code-quality'], installs: 59, quality: 91 },
+  { rank: 8, name: 'Cypress E2E', slug: 'cypress-e2e', types: ['e2e', 'web'], installs: 58, quality: 90 },
 ];
 
 export default function HomePage() {
@@ -50,16 +53,17 @@ export default function HomePage() {
         <div className="mx-auto max-w-7xl px-4 py-20 sm:px-6 sm:py-28 lg:px-8">
           <div className="text-center">
             <Badge variant="secondary" className="mb-6 animate-fade-in-up">
-              Open Source &middot; 20+ QA Skills
+              Open Source &middot; 45+ QA Skills
             </Badge>
             <h1 className="animate-fade-in-up delay-100 text-4xl font-bold tracking-tight sm:text-6xl lg:text-7xl">
               Give Your AI Agent
               <br />
-              <span className="text-primary">QA Superpowers</span>
+              <span className="text-primary">Complete QA Mastery</span>
             </h1>
             <p className="mx-auto mt-6 max-w-2xl text-lg text-muted-foreground sm:text-xl animate-fade-in-up delay-200">
-              Install curated testing skills into Claude Code, Cursor, Copilot, and 27+ AI coding
-              agents. One command. Instant expertise.
+              Install curated testing skills into Claude Code, Cursor, Copilot, and 30+ AI coding
+              agents. From browser automation to TDD, code quality to web testing. One command.
+              Instant expertise.
             </p>
 
             {/* Terminal */}
@@ -75,7 +79,7 @@ export default function HomePage() {
               </span>
               <span className="flex items-center gap-2">
                 <CheckCircle className="h-4 w-4 text-green-500" />
-                Works with 27+ agents
+                Works with 30+ agents
               </span>
               <span className="flex items-center gap-2">
                 <CheckCircle className="h-4 w-4 text-green-500" />
@@ -168,7 +172,7 @@ export default function HomePage() {
           <div className="flex items-center justify-between mb-8">
             <div>
               <h2 className="text-3xl font-bold">Top Skills</h2>
-              <p className="mt-2 text-muted-foreground">Most installed QA skills this month</p>
+              <p className="mt-2 text-muted-foreground">Most popular skills featuring browser automation, TDD, and more</p>
             </div>
             <Button variant="outline" asChild>
               <Link href="/leaderboard">
@@ -227,27 +231,80 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* New Skills Highlight */}
+      <section className="border-t border-border py-24">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12">
+            <Badge variant="secondary" className="mb-4">
+              NEW
+            </Badge>
+            <h2 className="text-3xl font-bold">Expanded Coverage</h2>
+            <p className="mt-4 text-muted-foreground max-w-2xl mx-auto">
+              25+ new skills added covering browser automation, TDD, code quality, and more
+            </p>
+          </div>
+          <div className="grid md:grid-cols-3 gap-6">
+            {[
+              {
+                title: 'Browser Automation',
+                description: 'Master automated browsing with Agent Browser, Browser Use, and Web App Testing skills',
+                skills: ['agent-browser', 'browser-use', 'webapp-testing'],
+              },
+              {
+                title: 'Test-Driven Development',
+                description: 'Build quality in from the start with TDD patterns, practices, and workflows',
+                skills: ['test-driven-development', 'tdd-patterns', 'tdd-workflow'],
+              },
+              {
+                title: 'Code Quality',
+                description: 'Maintain excellence with code review, static analysis, and quality tools',
+                skills: ['code-review-excellence', 'static-analysis', 'quality-gates'],
+              },
+            ].map((category, i) => (
+              <Card
+                key={category.title}
+                className={`animate-fade-in-up delay-${(i + 1) * 100}`}
+              >
+                <CardContent className="pt-6">
+                  <h3 className="text-lg font-semibold mb-2">{category.title}</h3>
+                  <p className="text-sm text-muted-foreground mb-4">{category.description}</p>
+                  <div className="flex flex-wrap gap-2">
+                    {category.skills.map((skill) => (
+                      <Badge key={skill} variant="outline" className="text-xs">
+                        {skill}
+                      </Badge>
+                    ))}
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* Testing Categories */}
       <section className="py-24">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-3xl font-bold">Skills for every testing need</h2>
             <p className="mt-4 text-muted-foreground">
-              From E2E to performance, security to accessibility
+              From browser automation to TDD, E2E to code quality, security to accessibility
             </p>
           </div>
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4">
             {[
-              { icon: Code2, name: 'E2E Testing', color: 'text-blue-500' },
+              { icon: Code2, name: 'Browser Automation', color: 'text-blue-500' },
+              { icon: Code2, name: 'E2E Testing', color: 'text-indigo-500' },
+              { icon: TestTube, name: 'TDD', color: 'text-red-500' },
+              { icon: Zap, name: 'Code Quality', color: 'text-purple-500' },
               { icon: Zap, name: 'API Testing', color: 'text-green-500' },
-              { icon: Gauge, name: 'Performance', color: 'text-red-500' },
-              { icon: Shield, name: 'Security', color: 'text-orange-500' },
-              { icon: Eye, name: 'Visual Regression', color: 'text-purple-500' },
+              { icon: Gauge, name: 'Performance', color: 'text-orange-500' },
+              { icon: Shield, name: 'Security', color: 'text-red-600' },
+              { icon: Eye, name: 'Visual Regression', color: 'text-purple-600' },
               { icon: Smartphone, name: 'Mobile Testing', color: 'text-pink-500' },
-              { icon: TestTube, name: 'Unit Testing', color: 'text-indigo-500' },
+              { icon: TestTube, name: 'Unit Testing', color: 'text-indigo-600' },
               { icon: Code2, name: 'Integration', color: 'text-yellow-500' },
               { icon: Shield, name: 'Accessibility', color: 'text-teal-500' },
-              { icon: Code2, name: 'Contract Testing', color: 'text-cyan-500' },
             ].map((cat) => (
               <Card
                 key={cat.name}

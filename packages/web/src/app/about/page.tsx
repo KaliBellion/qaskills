@@ -52,14 +52,14 @@ export default function AboutPage() {
         <Card className="text-center">
           <CardContent className="pt-6">
             <Terminal className="h-8 w-8 mx-auto text-primary mb-3" />
-            <div className="text-2xl font-bold">20+</div>
+            <div className="text-2xl font-bold">47+</div>
             <div className="text-sm text-muted-foreground">QA Skills</div>
           </CardContent>
         </Card>
         <Card className="text-center">
           <CardContent className="pt-6">
             <Users className="h-8 w-8 mx-auto text-green-500 mb-3" />
-            <div className="text-2xl font-bold">27+</div>
+            <div className="text-2xl font-bold">30+</div>
             <div className="text-sm text-muted-foreground">Agents Supported</div>
           </CardContent>
         </Card>

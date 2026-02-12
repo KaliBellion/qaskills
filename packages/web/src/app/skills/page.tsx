@@ -12,7 +12,7 @@ import { desc, ilike, sql, and, or, type SQL } from 'drizzle-orm';
 export const metadata = {
   title: 'Browse QA Skills',
   description:
-    'Search and filter curated QA testing skills by framework, testing type, and language. Install into Claude Code, Cursor, Copilot, and 27+ AI agents.',
+    'Search and filter 45+ curated QA testing skills by framework, testing type, and language. Install into Claude Code, Cursor, Copilot, and 30+ AI agents.',
 };
 
 interface SkillsPageProps {
@@ -232,7 +232,7 @@ export default async function SkillsPage({ searchParams }: SkillsPageProps) {
       <div className="mb-8">
         <h1 className="text-3xl font-bold">Browse QA Skills</h1>
         <p className="mt-2 text-muted-foreground">
-          {result.total} skills available for 27+ AI coding agents
+          {result.total} skills available for 30+ AI coding agents
         </p>
       </div>
 

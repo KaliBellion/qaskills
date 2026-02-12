@@ -22,6 +22,9 @@ pnpm --filter @qaskills/cli test
 pnpm --filter @qaskills/web dev
 pnpm --filter @qaskills/shared build
 
+# Run tests in watch mode
+pnpm --filter @qaskills/cli test:watch
+
 # Database (proxied to @qaskills/web)
 pnpm db:push                  # Push schema to Neon Postgres
 pnpm db:migrate               # Run Drizzle migrations
@@ -61,18 +64,20 @@ Next.js 15 with App Router, React 19, TailwindCSS v4, shadcn/ui (Radix primitive
 **Key patterns:**
 - Database uses a lazy Proxy in `src/db/index.ts` — initialized on first access, not at import time
 - Clerk middleware is dynamically imported and only activated when env vars are set (`src/middleware.ts`), preventing SSR crashes without credentials
-- Protected routes: `/dashboard(.*)`, `/api/skills/create(.*)`
+- Protected routes: `/dashboard(.*)`, `/api/skills/create(.*)`, `/api/reviews(.*)`
+- Public webhooks: `/api/webhooks(.*)` (bypasses auth)
 - Drizzle schema lives in `src/db/schema/`, migrations in `src/db/migrations/`
 - Drizzle config: `drizzle.config.ts` at package root
 
-**API routes:** `src/app/api/` — skills (CRUD + search/sort/pagination), categories, leaderboard, telemetry/install
+**API routes:** `src/app/api/` — Skills CRUD (`/api/skills`, `/api/skills/[id]` with search/sort/pagination), categories, reviews, leaderboard, telemetry/install, Clerk webhooks
 
 ### CLI (`packages/cli`)
 - `src/commands/` — One file per command (add, search, init, list, remove, update, info, publish)
 - `src/lib/agent-detector.ts` — Detects 30+ AI agents by checking for config file paths
 - `src/lib/installer.ts` — Downloads and installs skills to agent config directories
 - `src/lib/api-client.ts` — HTTP client for qaskills.sh API
-- Built with tsup (CJS output)
+- Built with tsup (CJS output, bundles @qaskills/shared via noExternal)
+- Entry point has #!/usr/bin/env node shebang for direct execution
 
 ### Skill Type Flow
 ```
@@ -81,6 +86,14 @@ SKILL.md YAML frontmatter → SkillFrontmatter (parsed) → SkillCreate (Zod-val
 
 ## SKILL.md Format
 Each skill is a markdown file with YAML frontmatter. See `seed-skills/*/SKILL.md` for examples. Validated by `@qaskills/shared` Zod schemas — fields include: name, description, version (semver), author, tags, testingTypes, frameworks, languages, domains, agents.
+
+## Development Workflow
+
+When making changes:
+1. **Shared package changes:** Rebuild it first (`pnpm --filter @qaskills/shared build`), then restart dependent package dev servers
+2. **Adding dependencies:** Use `pnpm add <package> --filter <package-name>` to add to a specific workspace package
+3. **Database changes:** Update schema in `packages/web/src/db/schema/` → run `pnpm db:push` (dev) or `pnpm db:migrate` (prod)
+4. **CLI testing:** After building, test with `node packages/cli/dist/index.js <command>` or install globally with `pnpm link -g` from the cli directory
 
 ## Code Style
 - Prettier: single quotes, semicolons, 100 char width, trailing commas, LF endings
