@@ -1,4 +1,7 @@
 {
+  "buildCommand": "cd ../.. && pnpm install && pnpm --filter @qaskills/web build",
+  "installCommand": "echo 'Skipping install, handled in buildCommand'",
+  "framework": "nextjs",
   "crons": [
     {
       "path": "/api/cron/weekly-digest",
