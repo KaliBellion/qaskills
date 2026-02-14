@@ -63,6 +63,9 @@ export const metadata: Metadata = {
     icon: '/favicon.ico',
     apple: '/apple-touch-icon.png',
   },
+  verification: {
+    google: 'tmHLtsk1O04uNVqBHiC1E4ZVZWY0Qe8ObW2AMFHs5f4',
+  },
 };
 
 export const viewport: Viewport = {
