@@ -12,8 +12,9 @@ import type { Metadata } from 'next';
 import { db } from '@/db';
 import { skills } from '@/db/schema';
 import { eq, and } from 'drizzle-orm';
-import { generateSkillJsonLd } from '@/lib/json-ld';
+import { generateSkillJsonLd, generateBreadcrumbJsonLd } from '@/lib/json-ld';
 import { ReviewSection } from '@/components/skills/review-section';
+import { SkillDescription } from '@/components/skills/skill-description';
 
 interface SkillPageProps {
   params: Promise<{ author: string; slug: string }>;
@@ -101,6 +102,18 @@ export default async function SkillDetailPage({ params }: SkillPageProps) {
           ),
         }}
       />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(
+            generateBreadcrumbJsonLd([
+              { name: 'Home', url: 'https://qaskills.sh' },
+              { name: 'Skills', url: 'https://qaskills.sh/skills' },
+              { name: skill.name, url: `https://qaskills.sh/skills/${skill.authorName}/${skill.slug}` },
+            ])
+          ),
+        }}
+      />
       {/* Breadcrumb */}
       <div className="mb-6">
         <Link href="/skills" className="flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground">
@@ -164,13 +177,11 @@ export default async function SkillDetailPage({ params }: SkillPageProps) {
               <CardTitle className="text-lg">About this skill</CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="prose prose-sm dark:prose-invert max-w-none">
-                {skill.fullDescription ? (
-                  <div dangerouslySetInnerHTML={{ __html: skill.fullDescription.replace(/\n/g, '<br/>') }} />
-                ) : (
-                  <p>{skill.description}</p>
-                )}
-              </div>
+              {skill.fullDescription ? (
+                <SkillDescription content={skill.fullDescription} />
+              ) : (
+                <p className="text-muted-foreground">{skill.description}</p>
+              )}
             </CardContent>
           </Card>
 

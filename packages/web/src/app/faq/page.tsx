@@ -89,24 +89,9 @@ const faqs = [
 ];
 
 export default function FAQPage() {
-  const faqJsonLd = {
-    '@context': 'https://schema.org',
-    '@type': 'FAQPage',
-    mainEntity: faqs.flatMap((section) =>
-      section.questions.map((faq) => ({
-        '@type': 'Question',
-        name: faq.q,
-        acceptedAnswer: { '@type': 'Answer', text: faq.a },
-      })),
-    ),
-  };
-
   return (
     <div className="mx-auto max-w-3xl px-4 py-16 sm:px-6 lg:px-8">
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
-      />
+      {/* Note: FAQPage schema removed. Google restricted FAQPage rich results to gov/healthcare sites (Aug 2023). */}
       {/* Header */}
       <div className="text-center mb-16">
         <h1 className="text-4xl font-bold tracking-tight sm:text-5xl">

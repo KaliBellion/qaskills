@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { ArrowLeft } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 import type { Metadata } from 'next';
-import { generateBlogPostJsonLd } from '@/lib/json-ld';
+import { generateBlogPostJsonLd, generateBreadcrumbJsonLd } from '@/lib/json-ld';
 
 interface BlogPostPageProps {
   params: Promise<{ slug: string }>;
@@ -193,6 +193,18 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
               date: post.date,
               slug,
             }),
+          ),
+        }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(
+            generateBreadcrumbJsonLd([
+              { name: 'Home', url: 'https://qaskills.sh' },
+              { name: 'Blog', url: 'https://qaskills.sh/blog' },
+              { name: post.title, url: `https://qaskills.sh/blog/${slug}` },
+            ])
           ),
         }}
       />

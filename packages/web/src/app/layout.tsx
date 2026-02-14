@@ -1,4 +1,4 @@
-import type { Metadata } from 'next';
+import type { Metadata, Viewport } from 'next';
 import { Inter } from 'next/font/google';
 import { ThemeProvider } from '@/components/theme-provider';
 import { Header } from '@/components/layout/header';
@@ -59,6 +59,28 @@ export const metadata: Metadata = {
     index: true,
     follow: true,
   },
+  icons: {
+    icon: '/favicon.ico',
+    apple: '/apple-touch-icon.png',
+  },
+  verification: {
+    google: 'GOOGLE_VERIFICATION_CODE',
+    other: {
+      'msvalidate.01': 'BING_VERIFICATION_CODE',
+    },
+  },
+  alternates: {
+    canonical: 'https://qaskills.sh',
+  },
+};
+
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  themeColor: [
+    { media: '(prefers-color-scheme: light)', color: '#ffffff' },
+    { media: '(prefers-color-scheme: dark)', color: '#09090b' },
+  ],
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
@@ -66,6 +88,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <ClerkWrapper>
       <html lang="en" suppressHydrationWarning>
         <head>
+          <link rel="preconnect" href="https://datafa.st" />
+          <link rel="dns-prefetch" href="https://datafa.st" />
           <script
             id="datafast-queue"
             dangerouslySetInnerHTML={{
@@ -80,10 +104,16 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           />
         </head>
         <body className={`${inter.variable} font-sans antialiased`}>
+          <a
+            href="#main-content"
+            className="sr-only focus:not-sr-only focus:absolute focus:z-50 focus:p-4 focus:bg-background focus:text-foreground"
+          >
+            Skip to main content
+          </a>
           <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
             <div className="flex min-h-screen flex-col">
               <Header />
-              <main className="flex-1">{children}</main>
+              <main id="main-content" className="flex-1">{children}</main>
               <Footer />
             </div>
           </ThemeProvider>

@@ -19,7 +19,16 @@ export function generateOrganizationJsonLd() {
     '@type': 'Organization',
     name: 'The Testing Academy',
     url: 'https://qaskills.sh',
-    sameAs: ['https://youtube.com/@TheTestingAcademy'],
+    logo: 'https://qaskills.sh/logo.png',
+    founder: {
+      '@type': 'Person',
+      name: 'Pramod Dutta',
+      url: 'https://youtube.com/@TheTestingAcademy',
+    },
+    sameAs: [
+      'https://youtube.com/@TheTestingAcademy',
+      'https://github.com/PramodDutta/qaskills',
+    ],
   };
 }
 
@@ -55,6 +64,8 @@ export function generateBlogPostJsonLd(post: {
   description: string;
   date: string;
   slug: string;
+  dateModified?: string;
+  image?: string;
 }) {
   return {
     '@context': 'https://schema.org',
@@ -62,8 +73,35 @@ export function generateBlogPostJsonLd(post: {
     headline: post.title,
     description: post.description,
     datePublished: post.date,
-    author: { '@type': 'Organization', name: 'The Testing Academy' },
-    publisher: { '@type': 'Organization', name: 'QA Skills' },
+    dateModified: post.dateModified || post.date,
+    ...(post.image && { image: post.image }),
+    author: {
+      '@type': 'Person',
+      name: 'Pramod Dutta',
+      url: 'https://youtube.com/@TheTestingAcademy',
+    },
+    publisher: {
+      '@type': 'Organization',
+      name: 'QASkills.sh',
+      url: 'https://qaskills.sh',
+      logo: { '@type': 'ImageObject', url: 'https://qaskills.sh/logo.png' },
+    },
     url: `https://qaskills.sh/blog/${post.slug}`,
+    mainEntityOfPage: `https://qaskills.sh/blog/${post.slug}`,
+  };
+}
+
+export function generateBreadcrumbJsonLd(
+  items: Array<{ name: string; url: string }>
+) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: items.map((item, index) => ({
+      '@type': 'ListItem',
+      position: index + 1,
+      name: item.name,
+      item: item.url,
+    })),
   };
 }

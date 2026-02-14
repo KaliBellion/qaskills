@@ -1,6 +1,6 @@
 import type { MetadataRoute } from 'next';
 import { db } from '@/db';
-import { skills } from '@/db/schema';
+import { skills, users } from '@/db/schema';
 
 const baseUrl = 'https://qaskills.sh';
 
@@ -19,17 +19,37 @@ const staticPages: MetadataRoute.Sitemap = [
   { url: `${baseUrl}/terms`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.3 },
   { url: `${baseUrl}/privacy`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.3 },
   { url: `${baseUrl}/refund-policy`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.3 },
+  { url: `${baseUrl}/llms.txt`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.2 },
+  // Index pages
+  { url: `${baseUrl}/agents`, lastModified: new Date(), changeFrequency: 'weekly' as const, priority: 0.9 },
+  { url: `${baseUrl}/categories`, lastModified: new Date(), changeFrequency: 'weekly' as const, priority: 0.9 },
+  { url: `${baseUrl}/compare`, lastModified: new Date(), changeFrequency: 'monthly' as const, priority: 0.8 },
+  // Agent pages
+  { url: `${baseUrl}/agents/claude-code`, lastModified: new Date(), changeFrequency: 'weekly' as const, priority: 0.85 },
+  { url: `${baseUrl}/agents/cursor`, lastModified: new Date(), changeFrequency: 'weekly' as const, priority: 0.85 },
+  { url: `${baseUrl}/agents/copilot`, lastModified: new Date(), changeFrequency: 'weekly' as const, priority: 0.85 },
+  { url: `${baseUrl}/agents/windsurf`, lastModified: new Date(), changeFrequency: 'weekly' as const, priority: 0.85 },
+  { url: `${baseUrl}/agents/cline`, lastModified: new Date(), changeFrequency: 'weekly' as const, priority: 0.85 },
+  // Category pages
+  { url: `${baseUrl}/categories/e2e-testing`, lastModified: new Date(), changeFrequency: 'weekly' as const, priority: 0.8 },
+  { url: `${baseUrl}/categories/unit-testing`, lastModified: new Date(), changeFrequency: 'weekly' as const, priority: 0.8 },
+  { url: `${baseUrl}/categories/api-testing`, lastModified: new Date(), changeFrequency: 'weekly' as const, priority: 0.8 },
+  { url: `${baseUrl}/categories/performance-testing`, lastModified: new Date(), changeFrequency: 'weekly' as const, priority: 0.8 },
+  { url: `${baseUrl}/categories/accessibility-testing`, lastModified: new Date(), changeFrequency: 'weekly' as const, priority: 0.8 },
+  // Comparison pages
+  { url: `${baseUrl}/compare/qaskills-vs-skillsmp`, lastModified: new Date(), changeFrequency: 'monthly' as const, priority: 0.75 },
+  { url: `${baseUrl}/compare/playwright-vs-cypress-skills`, lastModified: new Date(), changeFrequency: 'monthly' as const, priority: 0.75 },
 ];
 
-const blogSlugs = [
-  'introducing-qaskills',
-  'playwright-e2e-best-practices',
-  'ai-agents-qa-revolution',
+const blogPosts = [
+  { slug: 'introducing-qaskills', date: '2025-12-01' },
+  { slug: 'playwright-e2e-best-practices', date: '2025-12-15' },
+  { slug: 'ai-agents-qa-revolution', date: '2026-01-10' },
 ];
 
-const blogPages: MetadataRoute.Sitemap = blogSlugs.map((slug) => ({
-  url: `${baseUrl}/blog/${slug}`,
-  lastModified: new Date(),
+const blogPages: MetadataRoute.Sitemap = blogPosts.map((post) => ({
+  url: `${baseUrl}/blog/${post.slug}`,
+  lastModified: new Date(post.date),
   changeFrequency: 'monthly',
   priority: 0.6,
 }));
@@ -47,7 +67,18 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: 0.8,
     }));
 
-    return [...staticPages, ...skillPages, ...blogPages];
+    const allUsers = await db
+      .select({ username: users.username, updatedAt: users.updatedAt })
+      .from(users);
+
+    const userPages: MetadataRoute.Sitemap = allUsers.map((user) => ({
+      url: `${baseUrl}/users/${user.username}`,
+      lastModified: user.updatedAt,
+      changeFrequency: 'weekly',
+      priority: 0.6,
+    }));
+
+    return [...staticPages, ...skillPages, ...userPages, ...blogPages];
   } catch {
     // Fallback to static pages only when DB is not available
     return [...staticPages, ...blogPages];
