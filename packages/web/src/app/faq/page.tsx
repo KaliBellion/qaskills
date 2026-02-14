@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { ArrowRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { generateBreadcrumbJsonLd } from '@/lib/json-ld';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
@@ -91,6 +92,30 @@ const faqs = [
 export default function FAQPage() {
   return (
     <div className="mx-auto max-w-3xl px-4 py-16 sm:px-6 lg:px-8">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            '@context': 'https://schema.org',
+            '@type': 'WebPage',
+            name: 'Frequently Asked Questions',
+            description:
+              'Frequently asked questions about QASkills.sh — the QA skills directory for AI coding agents.',
+            url: 'https://qaskills.sh/faq',
+          }),
+        }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(
+            generateBreadcrumbJsonLd([
+              { name: 'Home', url: 'https://qaskills.sh' },
+              { name: 'FAQ', url: 'https://qaskills.sh/faq' },
+            ])
+          ),
+        }}
+      />
       {/* Note: FAQPage schema removed. Google restricted FAQPage rich results to gov/healthcare sites (Aug 2023). */}
       {/* Header */}
       <div className="text-center mb-16">

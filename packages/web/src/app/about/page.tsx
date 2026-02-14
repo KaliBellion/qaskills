@@ -2,6 +2,7 @@ import Link from 'next/link';
 import { Terminal, Users, Youtube, ArrowRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
+import { generateBreadcrumbJsonLd } from '@/lib/json-ld';
 
 export const metadata = {
   title: 'About',
@@ -12,6 +13,47 @@ export const metadata = {
 export default function AboutPage() {
   return (
     <div className="mx-auto max-w-4xl px-4 py-16 sm:px-6 lg:px-8">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            '@context': 'https://schema.org',
+            '@type': 'AboutPage',
+            name: 'About QASkills.sh',
+            description:
+              'QASkills.sh is built by The Testing Academy — a community of 189K+ QA engineers building the bridge between QA expertise and AI coding agents.',
+            url: 'https://qaskills.sh/about',
+            mainEntity: {
+              '@type': 'Organization',
+              name: 'The Testing Academy',
+              url: 'https://qaskills.sh',
+              description:
+                'Community of 189K+ QA engineers building the bridge between QA expertise and AI coding agents.',
+              founder: {
+                '@type': 'Person',
+                name: 'Pramod Dutta',
+                url: 'https://youtube.com/@TheTestingAcademy',
+                jobTitle: 'Founder',
+              },
+              sameAs: [
+                'https://youtube.com/@TheTestingAcademy',
+                'https://github.com/PramodDutta/qaskills',
+              ],
+            },
+          }),
+        }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(
+            generateBreadcrumbJsonLd([
+              { name: 'Home', url: 'https://qaskills.sh' },
+              { name: 'About', url: 'https://qaskills.sh/about' },
+            ])
+          ),
+        }}
+      />
       <div className="text-center mb-16">
         <h1 className="text-4xl font-bold">About QA Skills</h1>
         <p className="mt-4 text-lg text-muted-foreground">

@@ -8,6 +8,7 @@ import type { SkillSummary } from '@qaskills/shared';
 import { db } from '@/db';
 import { skills } from '@/db/schema';
 import { desc, ilike, sql, and, or, type SQL } from 'drizzle-orm';
+import { generateBreadcrumbJsonLd } from '@/lib/json-ld';
 
 export const metadata = {
   title: 'Browse QA Skills',
@@ -228,6 +229,40 @@ export default async function SkillsPage({ searchParams }: SkillsPageProps) {
 
   return (
     <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            '@context': 'https://schema.org',
+            '@type': 'CollectionPage',
+            name: 'Browse QA Skills',
+            description:
+              'Search and filter curated QA testing skills for AI coding agents. Playwright, Cypress, Jest, and 45+ skills.',
+            url: 'https://qaskills.sh/skills',
+            mainEntity: {
+              '@type': 'ItemList',
+              numberOfItems: result.skills.length,
+              itemListElement: result.skills.slice(0, 10).map((skill: any, i: number) => ({
+                '@type': 'ListItem',
+                position: i + 1,
+                name: skill.name,
+                url: `https://qaskills.sh/skills/${skill.author}/${skill.slug}`,
+              })),
+            },
+          }),
+        }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(
+            generateBreadcrumbJsonLd([
+              { name: 'Home', url: 'https://qaskills.sh' },
+              { name: 'Skills', url: 'https://qaskills.sh/skills' },
+            ])
+          ),
+        }}
+      />
       {/* Header */}
       <div className="mb-8">
         <h1 className="text-3xl font-bold">Browse QA Skills</h1>
