@@ -84,6 +84,9 @@ This is a critical pattern used throughout the app to avoid RSC errors:
 
 **DO NOT add `onClick` or other event handlers in server components — this causes 500 errors in production.**
 
+#### Markdown Rendering
+Skill detail pages render `fullDescription` (raw markdown) using `SkillDescription` client component (`src/components/skills/skill-description.tsx`): `react-markdown` + `remark-gfm` (GitHub-flavored markdown) + `rehype-sanitize` (XSS protection). Falls back to short `description` when `fullDescription` is empty.
+
 #### Email System (`src/lib/email/`)
 - `client.ts` — Lazy Resend singleton, `FROM_EMAIL` constant
 - `send.ts` — `sendWelcomeEmail()`, `sendNewSkillAlert()`, `sendWeeklyDigest()`, `buildUnsubscribeUrl()`
@@ -97,18 +100,20 @@ This is a critical pattern used throughout the app to avoid RSC errors:
 - `POST /api/unsubscribe` — Token-based unsubscribe (no auth required, CAN-SPAM compliance)
 - `POST /api/webhooks/clerk` — User created/updated events → DB insert + welcome email
 - `POST /api/cron/weekly-digest` — Vercel Cron (Mondays 9 AM UTC, configured in `vercel.json`), requires `CRON_SECRET` header
-- Also: `/api/skills/[id]`, `/api/categories`, `/api/reviews`, `/api/leaderboard`, `/api/telemetry/install`
+- `GET /api/skills/[id]/content` — Returns complete SKILL.md as `text/markdown` (reconstructed from DB: YAML frontmatter + `fullDescription` body). Used by CLI for full skill download
+- Also: `GET /api/skills/[id]`, `/api/categories`, `/api/reviews`, `/api/leaderboard`, `/api/telemetry/install`
 
 #### Database Schema (`src/db/schema/`)
 - **Core tables:** `users`, `userPreferences`, `skills`, `categories`
 - **Junction tables:** `skillCategories`, `agentCompatibility`, `installs`, `reviews`, `skillPacks`, `skillPackItems`
 - **JSONB arrays on skills:** `tags`, `testingTypes`, `frameworks`, `languages`, `domains`, `agents` — filtered with PostgreSQL `@>` contains operator
+- **`fullDescription`:** `text` column storing the markdown body of the SKILL.md (everything after YAML frontmatter). Populated by `seed.ts` which reads `seed-skills/<slug>/SKILL.md` files. Used by the `/content` API endpoint and rendered on skill detail pages
 - **Drizzle config:** `drizzle.config.ts` at package root, migrations in `src/db/migrations/`
 
 ### CLI (`packages/cli`)
 - `src/commands/` — One file per command (add, search, init, list, remove, update, info, publish)
 - `src/lib/agent-detector.ts` — Probes 30+ AI agent config paths, returns `DetectedAgent[]` with global vs project scope
-- `src/lib/installer.ts` — `resolveSkill()` determines source (registry/github/local), `downloadSkill()` fetches content
+- `src/lib/installer.ts` — `resolveSkill()` determines source (registry/github/local), `downloadSkill()` uses 3-tier fallback: git clone `githubUrl` → `GET /api/skills/{slug}/content` → reconstruct SKILL.md from metadata JSON. Validates non-empty output
 - `src/lib/api-client.ts` — HTTP client with 10s timeout, base URL `QASKILLS_API_URL || 'https://qaskills.sh'`
 - `src/lib/telemetry.ts` — Non-blocking install event tracking
 - Built with tsup: CJS output, `noExternal: ['@qaskills/shared']` bundles shared into CLI dist, shebang banner for direct execution
@@ -154,3 +159,5 @@ Each skill is a markdown file with YAML frontmatter. See `seed-skills/*/SKILL.md
 - Adding `onClick` or event handlers in server components causes 500 errors in production (Next.js RSC constraint)
 - The `getAuthUser()` helper auto-creates DB rows for Clerk users not yet in the database — don't assume all users come through the webhook
 - Resend client uses a placeholder API key during build to avoid errors — real key is only needed at runtime
+- `seed.ts` reads markdown body from `seed-skills/<slug>/SKILL.md` — if you add a new seed skill, create the SKILL.md file or `fullDescription` will be empty
+- CLI npm publish is triggered by `cli-v*` git tags — bump version in `packages/cli/package.json`, commit, `git tag cli-v<version>`, push with `--tags`
