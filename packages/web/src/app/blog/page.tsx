@@ -2,36 +2,13 @@ import Link from 'next/link';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { generateBreadcrumbJsonLd } from '@/lib/json-ld';
+import { postList } from './posts';
 
 export const metadata = {
   title: 'Blog',
   description:
     'QA testing insights, tutorials, and guides for using AI coding agents with curated testing skills. By The Testing Academy.',
 };
-
-const posts = [
-  {
-    slug: 'introducing-qaskills',
-    title: 'Introducing QA Skills — Agent Skills for Testing',
-    description: 'Why we built the first QA-specific skills directory for AI coding agents, and how it changes the way you write tests.',
-    date: '2026-02-10',
-    category: 'Announcement',
-  },
-  {
-    slug: 'playwright-e2e-best-practices',
-    title: 'Playwright E2E Best Practices for AI Agents',
-    description: 'How our Playwright E2E skill teaches AI agents to write robust, maintainable end-to-end tests.',
-    date: '2026-02-08',
-    category: 'Tutorial',
-  },
-  {
-    slug: 'ai-agents-qa-revolution',
-    title: 'The AI Agent Revolution in QA Testing',
-    description: 'How AI coding agents are transforming QA, and why they need specialized testing knowledge.',
-    date: '2026-02-05',
-    category: 'Industry',
-  },
-];
 
 export default function BlogPage() {
   return (
@@ -50,7 +27,7 @@ export default function BlogPage() {
               name: 'QASkills.sh',
               url: 'https://qaskills.sh',
             },
-            blogPost: posts.map((post) => ({
+            blogPost: postList.map((post) => ({
               '@type': 'BlogPosting',
               headline: post.title,
               datePublished: post.date,
@@ -76,7 +53,7 @@ export default function BlogPage() {
       </div>
 
       <div className="space-y-6">
-        {posts.map((post) => (
+        {postList.map((post) => (
           <Link key={post.slug} href={`/blog/${post.slug}`}>
             <Card className="hover:shadow-md transition-shadow">
               <CardHeader>

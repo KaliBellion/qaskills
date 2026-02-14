@@ -30,8 +30,8 @@
 |------|-------|-----|----------------|--------|
 | Comparison | QASkills vs SkillsMP | `/compare/qaskills-vs-skillsmp` | "skillsmp alternative", "qa skills directory" | Pending |
 | Comparison | Playwright vs Cypress Skills for AI | `/compare/playwright-vs-cypress-skills` | "playwright vs cypress", "best testing framework AI" | Pending |
-| Blog | 5 Must-Have QA Skills for Claude Code in 2026 | `/blog/must-have-qa-skills-claude-code-2026` | "Claude Code testing skills" | Pending |
-| Blog | How AI Agents Are Changing QA Testing | `/blog/how-ai-agents-changing-qa-testing` | "AI QA testing 2026" | Pending |
+| Blog | 5 Must-Have QA Skills for Claude Code in 2026 | `/blog/must-have-qa-skills-claude-code-2026` | "Claude Code testing skills" | Done |
+| Blog | How AI Agents Are Changing QA Testing | `/blog/how-ai-agents-changing-qa-testing` | "AI QA testing 2026" | Done |
 
 ---
 
@@ -40,9 +40,9 @@
 ### Blog Posts
 | Type | Title | Target Keywords | Status |
 |------|-------|----------------|--------|
-| Blog | Complete Guide: Setting Up Playwright E2E with AI Skills | "playwright e2e testing guide" | Pending |
-| Blog | TDD with AI Agents — Best Practices | "TDD AI agents" | Pending |
-| Blog | Top 10 QA Skills Every Developer Should Install | "best QA skills 2026" | Pending |
+| Blog | Complete Guide: Setting Up Playwright E2E with AI Skills | "playwright e2e testing guide" | Done |
+| Blog | TDD with AI Agents — Best Practices | "TDD AI agents" | Done |
+| Blog | Top 10 QA Skills Every Developer Should Install | "best QA skills 2026" | Done |
 | Blog | API Testing Automation with AI — Complete Guide | "API testing AI agents" | Pending |
 
 ### Guides (Long-Form)
