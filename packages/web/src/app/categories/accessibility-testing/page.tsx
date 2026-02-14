@@ -44,6 +44,29 @@ export default async function AccessibilityTestingPage() {
     <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
       <script
         type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            '@context': 'https://schema.org',
+            '@type': 'CollectionPage',
+            name: 'Accessibility Testing Skills for AI Agents',
+            description:
+              'Accessibility testing skills for AI coding agents. WCAG compliance, axe-core, and a11y testing automation — one command install.',
+            url: 'https://qaskills.sh/categories/accessibility-testing',
+            mainEntity: {
+              '@type': 'ItemList',
+              numberOfItems: categorySkills.length,
+              itemListElement: categorySkills.slice(0, 10).map((skill: any, i: number) => ({
+                '@type': 'ListItem',
+                position: i + 1,
+                name: skill.name,
+                url: `https://qaskills.sh/skills/${skill.authorName}/${skill.slug}`,
+              })),
+            },
+          }),
+        }}
+      />
+      <script
+        type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
       />
 

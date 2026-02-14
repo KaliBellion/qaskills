@@ -32,6 +32,28 @@ export default async function ClineAgentPage() {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            '@context': 'https://schema.org',
+            '@type': 'CollectionPage',
+            name: 'QA Skills for Cline',
+            description: 'Browse and install curated QA testing skills for Cline.',
+            url: 'https://qaskills.sh/agents/cline',
+            mainEntity: {
+              '@type': 'ItemList',
+              numberOfItems: agentSkills.length,
+              itemListElement: agentSkills.slice(0, 10).map((skill: any, i: number) => ({
+                '@type': 'ListItem',
+                position: i + 1,
+                name: skill.name,
+                url: `https://qaskills.sh/skills/${skill.authorName}/${skill.slug}`,
+              })),
+            },
+          }),
+        }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
           __html: JSON.stringify(
             generateBreadcrumbJsonLd([
               { name: 'Home', url: 'https://qaskills.sh' },

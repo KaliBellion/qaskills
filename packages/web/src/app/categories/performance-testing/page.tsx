@@ -44,6 +44,29 @@ export default async function PerformanceTestingPage() {
     <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
       <script
         type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            '@context': 'https://schema.org',
+            '@type': 'CollectionPage',
+            name: 'Performance Testing Skills for AI Agents',
+            description:
+              'Performance and load testing skills for AI coding agents. Lighthouse, k6, and performance optimization — curated by The Testing Academy.',
+            url: 'https://qaskills.sh/categories/performance-testing',
+            mainEntity: {
+              '@type': 'ItemList',
+              numberOfItems: categorySkills.length,
+              itemListElement: categorySkills.slice(0, 10).map((skill: any, i: number) => ({
+                '@type': 'ListItem',
+                position: i + 1,
+                name: skill.name,
+                url: `https://qaskills.sh/skills/${skill.authorName}/${skill.slug}`,
+              })),
+            },
+          }),
+        }}
+      />
+      <script
+        type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
       />
 

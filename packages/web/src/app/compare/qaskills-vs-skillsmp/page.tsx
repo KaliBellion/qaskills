@@ -22,6 +22,39 @@ export default function QASkillsVsSkillsMP() {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            '@context': 'https://schema.org',
+            '@type': 'Article',
+            headline: 'QASkills.sh vs SkillsMP: Which Is Better for QA Testing?',
+            description:
+              'Compare QASkills.sh and SkillsMP for QA testing skills. See which AI agent skills directory is better for test automation, Playwright, Cypress, and more.',
+            url: 'https://qaskills.sh/compare/qaskills-vs-skillsmp',
+            datePublished: '2026-02-14',
+            image:
+              'https://qaskills.sh/api/og?title=QASkills+vs+SkillsMP&description=Best+QA+Skills+Directory',
+            author: {
+              '@type': 'Person',
+              name: 'Pramod Dutta',
+              url: 'https://youtube.com/@TheTestingAcademy',
+            },
+            publisher: {
+              '@type': 'Organization',
+              name: 'QASkills.sh',
+              url: 'https://qaskills.sh',
+              logo: {
+                '@type': 'ImageObject',
+                url: 'https://qaskills.sh/logo.png',
+                width: 512,
+                height: 512,
+              },
+            },
+            mainEntityOfPage: 'https://qaskills.sh/compare/qaskills-vs-skillsmp',
+          }),
+        }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
           __html: JSON.stringify(
             generateBreadcrumbJsonLd([
               { name: 'Home', url: 'https://qaskills.sh' },

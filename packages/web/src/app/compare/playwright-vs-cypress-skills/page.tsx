@@ -22,6 +22,39 @@ export default function PlaywrightVsCypressSkills() {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            '@context': 'https://schema.org',
+            '@type': 'Article',
+            headline: 'Playwright vs Cypress: Best Testing Skills for AI Agents',
+            description:
+              'Compare Playwright and Cypress testing skills for AI coding agents. Framework features, performance, community, and which skills to install.',
+            url: 'https://qaskills.sh/compare/playwright-vs-cypress-skills',
+            datePublished: '2026-02-14',
+            image:
+              'https://qaskills.sh/api/og?title=Playwright+vs+Cypress&description=Best+Testing+Skills+for+AI+Agents',
+            author: {
+              '@type': 'Person',
+              name: 'Pramod Dutta',
+              url: 'https://youtube.com/@TheTestingAcademy',
+            },
+            publisher: {
+              '@type': 'Organization',
+              name: 'QASkills.sh',
+              url: 'https://qaskills.sh',
+              logo: {
+                '@type': 'ImageObject',
+                url: 'https://qaskills.sh/logo.png',
+                width: 512,
+                height: 512,
+              },
+            },
+            mainEntityOfPage: 'https://qaskills.sh/compare/playwright-vs-cypress-skills',
+          }),
+        }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
           __html: JSON.stringify(
             generateBreadcrumbJsonLd([
               { name: 'Home', url: 'https://qaskills.sh' },

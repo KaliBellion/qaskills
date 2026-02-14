@@ -41,6 +41,29 @@ export default async function E2ETestingPage() {
     <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
       <script
         type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            '@context': 'https://schema.org',
+            '@type': 'CollectionPage',
+            name: 'E2E Testing Skills for AI Agents',
+            description:
+              'End-to-end testing skills for AI coding agents. Playwright, Cypress, Selenium, and browser automation — install with one command.',
+            url: 'https://qaskills.sh/categories/e2e-testing',
+            mainEntity: {
+              '@type': 'ItemList',
+              numberOfItems: categorySkills.length,
+              itemListElement: categorySkills.slice(0, 10).map((skill: any, i: number) => ({
+                '@type': 'ListItem',
+                position: i + 1,
+                name: skill.name,
+                url: `https://qaskills.sh/skills/${skill.authorName}/${skill.slug}`,
+              })),
+            },
+          }),
+        }}
+      />
+      <script
+        type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
       />
 
