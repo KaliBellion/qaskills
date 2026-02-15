@@ -5,14 +5,16 @@ const footerLinks = {
   Product: [
     { href: '/skills', label: 'Browse Skills' },
     { href: '/packs', label: 'Skill Packs' },
+    { href: '/agents', label: 'Skills by Agent' },
+    { href: '/categories', label: 'Skills by Category' },
+    { href: '/compare', label: 'Compare Tools' },
     { href: '/leaderboard', label: 'Leaderboard' },
-    { href: '/pricing', label: 'Pricing' },
   ],
   Resources: [
+    { href: '/blog', label: 'Blog' },
     { href: '/getting-started', label: 'Getting Started' },
     { href: '/how-to-publish', label: 'Publish a Skill' },
     { href: '/faq', label: 'FAQ' },
-    { href: '/blog', label: 'Blog' },
     { href: '/about', label: 'About' },
     { href: '/contact', label: 'Contact Us' },
   ],
