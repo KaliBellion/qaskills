@@ -12,6 +12,11 @@ import { post as aiAgentsChangingQa } from './how-ai-agents-changing-qa-testing'
 import { post as playwrightGuide } from './playwright-e2e-complete-guide';
 import { post as tddBestPractices } from './tdd-ai-agents-best-practices';
 import { post as top10QaSkills } from './top-10-qa-skills-developers-2026';
+import { post as cypressVsPlaywright } from './cypress-vs-playwright-2026';
+import { post as fixFlakyTests } from './fix-flaky-tests-guide';
+import { post as securityTestingAiCode } from './security-testing-ai-generated-code';
+import { post as shiftLeftTesting } from './shift-left-testing-ai-agents';
+import { post as apiTestingGuide } from './api-testing-complete-guide';
 
 // Original posts
 const introducingQaskills: BlogPost = {
@@ -165,10 +170,35 @@ export const posts: Record<string, BlogPost> = {
   'playwright-e2e-complete-guide': playwrightGuide,
   'tdd-ai-agents-best-practices': tddBestPractices,
   'top-10-qa-skills-developers-2026': top10QaSkills,
+  'cypress-vs-playwright-2026': cypressVsPlaywright,
+  'fix-flaky-tests-guide': fixFlakyTests,
+  'security-testing-ai-generated-code': securityTestingAiCode,
+  'shift-left-testing-ai-agents': shiftLeftTesting,
+  'api-testing-complete-guide': apiTestingGuide,
 };
 
 // Ordered list for the blog listing page (newest first)
 export const postList = [
+  {
+    slug: 'api-testing-complete-guide',
+    ...apiTestingGuide,
+  },
+  {
+    slug: 'shift-left-testing-ai-agents',
+    ...shiftLeftTesting,
+  },
+  {
+    slug: 'security-testing-ai-generated-code',
+    ...securityTestingAiCode,
+  },
+  {
+    slug: 'fix-flaky-tests-guide',
+    ...fixFlakyTests,
+  },
+  {
+    slug: 'cypress-vs-playwright-2026',
+    ...cypressVsPlaywright,
+  },
   {
     slug: 'must-have-qa-skills-claude-code-2026',
     ...mustHaveQaSkills,
