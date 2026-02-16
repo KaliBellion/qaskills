@@ -1,38 +1,21 @@
 import Link from 'next/link';
-import {
-  ArrowRight,
-  Search,
-  Download,
-  Zap,
-  Shield,
-  Eye,
-  Gauge,
-  Smartphone,
-  Code2,
-  TestTube,
-  Heart,
-  Coffee,
-  CheckCircle,
-} from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { QualityBadge } from '@/components/skills/quality-badge';
-import { FRAMEWORKS } from '@qaskills/shared';
 import { HeroTerminal } from '@/components/home/hero-terminal';
 import { AgentMarquee } from '@/components/home/agent-marquee';
-import { StatsCounter } from '@/components/home/stats-counter';
 import { generateWebsiteJsonLd, generateOrganizationJsonLd } from '@/lib/json-ld';
 
-const featuredSkills = [
-  { rank: 1, name: 'Playwright E2E', slug: 'playwright-e2e', types: ['e2e', 'web'], installs: 86, quality: 92 },
-  { rank: 2, name: 'Agent Browser', slug: 'agent-browser', types: ['browser-automation'], installs: 72, quality: 95 },
-  { rank: 3, name: 'Browser Use', slug: 'browser-use', types: ['browser-automation'], installs: 68, quality: 94 },
-  { rank: 4, name: 'Web App Testing', slug: 'webapp-testing', types: ['e2e', 'web'], installs: 65, quality: 93 },
-  { rank: 5, name: 'Jest Unit', slug: 'jest-unit', types: ['unit'], installs: 64, quality: 91 },
-  { rank: 6, name: 'Test Driven Development', slug: 'test-driven-development', types: ['tdd'], installs: 61, quality: 92 },
-  { rank: 7, name: 'Code Review Excellence', slug: 'code-review-excellence', types: ['code-quality'], installs: 59, quality: 91 },
-  { rank: 8, name: 'Cypress E2E', slug: 'cypress-e2e', types: ['e2e', 'web'], installs: 58, quality: 90 },
+const topSkills = [
+  { rank: 1, name: 'Playwright E2E', slug: 'playwright-e2e', type: 'E2E', installs: 86, quality: 92 },
+  { rank: 2, name: 'Agent Browser', slug: 'agent-browser', type: 'Browser', installs: 72, quality: 95 },
+  { rank: 3, name: 'Browser Use', slug: 'browser-use', type: 'Browser', installs: 68, quality: 94 },
+  { rank: 4, name: 'Web App Testing', slug: 'webapp-testing', type: 'E2E', installs: 65, quality: 93 },
+  { rank: 5, name: 'Jest Unit', slug: 'jest-unit', type: 'Unit', installs: 64, quality: 91 },
+  { rank: 6, name: 'TDD Patterns', slug: 'test-driven-development', type: 'TDD', installs: 61, quality: 92 },
+  { rank: 7, name: 'Code Review', slug: 'code-review-excellence', type: 'Quality', installs: 59, quality: 91 },
+  { rank: 8, name: 'Cypress E2E', slug: 'cypress-e2e', type: 'E2E', installs: 58, quality: 90 },
 ];
 
 export default function HomePage() {
@@ -44,51 +27,31 @@ export default function HomePage() {
           __html: JSON.stringify([generateWebsiteJsonLd(), generateOrganizationJsonLd()]),
         }}
       />
+
       {/* Hero */}
       <section className="relative overflow-hidden border-b border-border">
-        {/* Gradient blur circles */}
         <div className="pointer-events-none absolute -top-40 left-1/4 h-80 w-80 rounded-full bg-primary/10 blur-[100px]" />
         <div className="pointer-events-none absolute -bottom-40 right-1/4 h-80 w-80 rounded-full bg-primary/5 blur-[100px]" />
 
-        <div className="mx-auto max-w-7xl px-4 py-20 sm:px-6 sm:py-28 lg:px-8">
+        <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 sm:py-24 lg:px-8">
           <div className="text-center">
             <Badge variant="secondary" className="mb-6 animate-fade-in-up">
-              Open Source &middot; 45+ QA Skills
+              Open Source &middot; 45+ Skills
             </Badge>
-            <h1 className="animate-fade-in-up delay-100 text-4xl font-bold tracking-tight sm:text-6xl lg:text-7xl">
-              Give Your AI Agent
+            <h1 className="animate-fade-in-up delay-100 text-4xl font-bold tracking-tight sm:text-5xl lg:text-6xl">
+              QA Skills for
               <br />
-              <span className="text-primary">Complete QA Mastery</span>
+              <span className="text-primary">AI Coding Agents</span>
             </h1>
-            <p className="mx-auto mt-6 max-w-2xl text-lg text-muted-foreground sm:text-xl animate-fade-in-up delay-200">
-              Install curated testing skills into Claude Code, Cursor, Copilot, and 30+ AI coding
-              agents. From browser automation to TDD, code quality to web testing. One command.
-              Instant expertise.
+            <p className="mx-auto mt-6 max-w-xl text-lg text-muted-foreground animate-fade-in-up delay-200">
+              One command. Expert testing knowledge in Claude Code, Cursor, Copilot, and 30+ agents.
             </p>
 
-            {/* Terminal */}
             <div className="mt-10 animate-fade-in-up delay-300">
               <HeroTerminal />
             </div>
 
-            {/* Value props */}
-            <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-6 text-sm text-muted-foreground animate-fade-in-up delay-400">
-              <span className="flex items-center gap-2">
-                <CheckCircle className="h-4 w-4 text-green-500" />
-                Auto-detects framework
-              </span>
-              <span className="flex items-center gap-2">
-                <CheckCircle className="h-4 w-4 text-green-500" />
-                Works with 30+ agents
-              </span>
-              <span className="flex items-center gap-2">
-                <CheckCircle className="h-4 w-4 text-green-500" />
-                TypeScript first
-              </span>
-            </div>
-
-            {/* CTAs */}
-            <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4 animate-fade-in-up delay-500">
+            <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4 animate-fade-in-up delay-400">
               <Button size="lg" asChild>
                 <Link href="/skills">
                   Browse Skills <ArrowRight className="h-4 w-4" />
@@ -104,87 +67,30 @@ export default function HomePage() {
 
       {/* Agent Marquee */}
       <section className="border-b border-border bg-muted/30">
-        <div className="mx-auto max-w-7xl px-4 pt-8 sm:px-6 lg:px-8">
-          <p className="text-center text-sm font-medium text-muted-foreground mb-4">
+        <div className="mx-auto max-w-7xl px-4 pt-6 sm:px-6 lg:px-8">
+          <p className="text-center text-xs font-medium text-muted-foreground uppercase tracking-wider">
             Works with your favorite AI agents
           </p>
         </div>
         <AgentMarquee />
       </section>
 
-      {/* Stats */}
-      <section className="border-b border-border py-16">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <StatsCounter />
-        </div>
-      </section>
-
-      {/* How it works */}
-      <section className="py-24">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl font-bold">How it works</h2>
-            <p className="mt-4 text-muted-foreground">
-              Three steps to supercharge your AI agent with QA skills
-            </p>
-          </div>
-          <div className="grid md:grid-cols-3 gap-8">
-            {[
-              {
-                icon: Search,
-                title: '1. Search',
-                description:
-                  'Find the perfect QA skill for your testing needs. Filter by framework, testing type, and language.',
-              },
-              {
-                icon: Download,
-                title: '2. Install',
-                description:
-                  'One command installs the skill to your AI agent. Auto-detects Claude Code, Cursor, Copilot, and more.',
-              },
-              {
-                icon: TestTube,
-                title: '3. Test',
-                description:
-                  'Your AI agent now has expert QA knowledge. Write better tests with best practices baked in.',
-              },
-            ].map((step, i) => (
-              <Card
-                key={step.title}
-                className={`text-center animate-fade-in-up delay-${(i + 1) * 100}`}
-              >
-                <CardContent className="pt-6">
-                  <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-primary/10">
-                    <step.icon className="h-6 w-6 text-primary" />
-                  </div>
-                  <h3 className="text-lg font-semibold">{step.title}</h3>
-                  <p className="mt-2 text-sm text-muted-foreground">{step.description}</p>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Featured Skills */}
-      <section className="border-t border-border py-24 bg-muted/30">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between mb-8">
-            <div>
-              <h2 className="text-3xl font-bold">Top Skills</h2>
-              <p className="mt-2 text-muted-foreground">Most popular skills featuring browser automation, TDD, and more</p>
-            </div>
-            <Button variant="outline" asChild>
-              <Link href="/leaderboard">
-                View Leaderboard <ArrowRight className="h-4 w-4" />
+      {/* Top Skills */}
+      <section className="py-16">
+        <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
+          <div className="flex items-center justify-between mb-6">
+            <h2 className="text-2xl font-bold">Top Skills</h2>
+            <Button variant="ghost" size="sm" asChild>
+              <Link href="/skills">
+                View all <ArrowRight className="h-3 w-3" />
               </Link>
             </Button>
           </div>
           <div className="rounded-lg border border-border bg-card overflow-hidden">
             <table className="w-full">
               <thead>
-                <tr className="border-b border-border text-left text-sm text-muted-foreground">
-                  <th className="px-4 py-3 font-medium w-12">#</th>
+                <tr className="border-b border-border text-left text-xs text-muted-foreground uppercase tracking-wider">
+                  <th className="px-4 py-3 font-medium w-10">#</th>
                   <th className="px-4 py-3 font-medium">Skill</th>
                   <th className="px-4 py-3 font-medium hidden sm:table-cell">Type</th>
                   <th className="px-4 py-3 font-medium text-right">Installs</th>
@@ -192,7 +98,7 @@ export default function HomePage() {
                 </tr>
               </thead>
               <tbody>
-                {featuredSkills.map((skill) => (
+                {topSkills.map((skill) => (
                   <tr
                     key={skill.slug}
                     className="border-b border-border/50 last:border-0 hover:bg-muted/50 transition-colors"
@@ -209,16 +115,12 @@ export default function HomePage() {
                       </Link>
                     </td>
                     <td className="px-4 py-3 hidden sm:table-cell">
-                      <div className="flex gap-1">
-                        {skill.types.map((type) => (
-                          <Badge key={type} variant="secondary" className="text-xs">
-                            {type}
-                          </Badge>
-                        ))}
-                      </div>
+                      <Badge variant="secondary" className="text-xs">
+                        {skill.type}
+                      </Badge>
                     </td>
                     <td className="px-4 py-3 text-right text-sm tabular-nums">
-                      {skill.installs.toLocaleString()}
+                      {skill.installs}
                     </td>
                     <td className="px-4 py-3 text-right hidden sm:table-cell">
                       <QualityBadge score={skill.quality} />
@@ -231,158 +133,28 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* New Skills Highlight */}
-      <section className="border-t border-border py-24">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <Badge variant="secondary" className="mb-4">
-              NEW
-            </Badge>
-            <h2 className="text-3xl font-bold">Expanded Coverage</h2>
-            <p className="mt-4 text-muted-foreground max-w-2xl mx-auto">
-              25+ new skills added covering browser automation, TDD, code quality, and more
-            </p>
-          </div>
-          <div className="grid md:grid-cols-3 gap-6">
-            {[
-              {
-                title: 'Browser Automation',
-                description: 'Master automated browsing with Agent Browser, Browser Use, and Web App Testing skills',
-                skills: ['agent-browser', 'browser-use', 'webapp-testing'],
-              },
-              {
-                title: 'Test-Driven Development',
-                description: 'Build quality in from the start with TDD patterns, practices, and workflows',
-                skills: ['test-driven-development', 'tdd-patterns', 'tdd-workflow'],
-              },
-              {
-                title: 'Code Quality',
-                description: 'Maintain excellence with code review, static analysis, and quality tools',
-                skills: ['code-review-excellence', 'static-analysis', 'quality-gates'],
-              },
-            ].map((category, i) => (
-              <Card
-                key={category.title}
-                className={`animate-fade-in-up delay-${(i + 1) * 100}`}
-              >
-                <CardContent className="pt-6">
-                  <h3 className="text-lg font-semibold mb-2">{category.title}</h3>
-                  <p className="text-sm text-muted-foreground mb-4">{category.description}</p>
-                  <div className="flex flex-wrap gap-2">
-                    {category.skills.map((skill) => (
-                      <Badge key={skill} variant="outline" className="text-xs">
-                        {skill}
-                      </Badge>
-                    ))}
-                  </div>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Testing Categories */}
-      <section className="py-24">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl font-bold">Skills for every testing need</h2>
-            <p className="mt-4 text-muted-foreground">
-              From browser automation to TDD, E2E to code quality, security to accessibility
-            </p>
-          </div>
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4">
-            {[
-              { icon: Code2, name: 'Browser Automation', color: 'text-blue-500' },
-              { icon: Code2, name: 'E2E Testing', color: 'text-indigo-500' },
-              { icon: TestTube, name: 'TDD', color: 'text-red-500' },
-              { icon: Zap, name: 'Code Quality', color: 'text-purple-500' },
-              { icon: Zap, name: 'API Testing', color: 'text-green-500' },
-              { icon: Gauge, name: 'Performance', color: 'text-orange-500' },
-              { icon: Shield, name: 'Security', color: 'text-red-600' },
-              { icon: Eye, name: 'Visual Regression', color: 'text-purple-600' },
-              { icon: Smartphone, name: 'Mobile Testing', color: 'text-pink-500' },
-              { icon: TestTube, name: 'Unit Testing', color: 'text-indigo-600' },
-              { icon: Code2, name: 'Integration', color: 'text-yellow-500' },
-              { icon: Shield, name: 'Accessibility', color: 'text-teal-500' },
-            ].map((cat) => (
-              <Card
-                key={cat.name}
-                className="text-center hover:border-primary/30 hover:-translate-y-0.5 transition-all duration-200 cursor-pointer"
-              >
-                <CardContent className="py-4 px-3">
-                  <cat.icon className={`h-6 w-6 mx-auto mb-2 ${cat.color}`} />
-                  <p className="text-xs font-medium">{cat.name}</p>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Frameworks */}
-      <section className="border-t border-border py-24 bg-muted/30">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold">Works with your tools</h2>
-            <p className="mt-4 text-muted-foreground">Skills for all major testing frameworks</p>
-          </div>
-          <div className="flex flex-wrap justify-center gap-3">
-            {FRAMEWORKS.map((fw) => (
-              <Badge key={fw.id} variant="outline" className="px-4 py-2 text-sm">
-                {fw.name}
-              </Badge>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Support & CTA */}
-      <section className="border-t border-border bg-primary/5 py-24">
-        <div className="mx-auto max-w-3xl px-4 text-center sm:px-6 lg:px-8">
-          <h2 className="text-3xl font-bold">Start in 30 seconds</h2>
-          <p className="mt-4 text-lg text-muted-foreground">
-            Join the community of QA engineers using AI agent skills to write better tests, faster.
+      {/* CTA */}
+      <section className="border-t border-border py-16">
+        <div className="mx-auto max-w-2xl px-4 text-center sm:px-6 lg:px-8">
+          <h2 className="text-2xl font-bold">Start in 30 seconds</h2>
+          <p className="mt-3 text-muted-foreground">
+            Install a skill and your AI agent writes better tests immediately.
           </p>
-          <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4">
-            <div className="rounded-lg border border-border bg-card px-4 py-3 font-mono text-sm shadow-sm">
-              <code>npx @qaskills/cli search</code>
-            </div>
-            <Button size="lg" asChild>
-              <Link href="/skills">
-                Browse All Skills <ArrowRight className="h-4 w-4" />
-              </Link>
-            </Button>
+          <div className="mt-6 inline-flex items-center gap-3 rounded-lg border border-border bg-card px-5 py-3 font-mono text-sm">
+            <code>npx @qaskills/cli add playwright-e2e</code>
           </div>
-
-          {/* Buy Me a Coffee + TheTestingAcademy */}
-          <div className="mt-16 flex flex-col items-center gap-4">
-            <p className="text-sm text-muted-foreground">
-              QASkills.sh is free &amp; open source. If it helps you, consider supporting us!
-            </p>
-            <a
-              href="https://www.buymeacoffee.com/thetestingacademy"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 rounded-lg bg-[#FFDD00] px-6 py-3 text-sm font-semibold text-black shadow-md hover:bg-[#FFDD00]/90 transition-colors"
-            >
-              <Coffee className="h-5 w-5" />
-              Buy Me a Coffee
-            </a>
-            <div className="mt-4 flex items-center gap-3">
-              <a
-                href="https://youtube.com/@TheTestingAcademy"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 rounded-full border border-border bg-card px-4 py-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
-              >
-                <Heart className="h-4 w-4 text-red-500" />
-                @TheTestingAcademy — 189K+ Subscribers
-              </a>
-            </div>
-            <p className="text-xs text-muted-foreground mt-2">
-              Built with love by Pramod Dutta &amp; The Testing Academy community
-            </p>
+          <div className="mt-6 flex flex-col sm:flex-row items-center justify-center gap-3 text-sm text-muted-foreground">
+            <Link href="/getting-started" className="hover:text-foreground transition-colors underline underline-offset-4">
+              Getting started guide
+            </Link>
+            <span className="hidden sm:inline">&middot;</span>
+            <Link href="/blog" className="hover:text-foreground transition-colors underline underline-offset-4">
+              Read the blog
+            </Link>
+            <span className="hidden sm:inline">&middot;</span>
+            <Link href="/agents" className="hover:text-foreground transition-colors underline underline-offset-4">
+              Browse by agent
+            </Link>
           </div>
         </div>
       </section>
