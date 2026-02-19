@@ -22,6 +22,11 @@ import { post as jestVsVitest } from './jest-vs-vitest-2026';
 import { post as playwrightTutorial } from './playwright-tutorial-beginners-2026';
 import { post as cicdPipeline } from './cicd-testing-pipeline-github-actions';
 import { post as aiTestAutomation } from './ai-test-automation-tools-2026';
+import { post as vibeTestingGuide } from './vibe-testing-ai-first-qa-guide';
+import { post as playwrightTestAgents } from './playwright-test-agents-claude-code';
+import { post as testingAiGeneratedCode } from './testing-ai-generated-code-sdet-playbook';
+import { post as autonomousTestingBuildVsBuy } from './autonomous-testing-agents-build-vs-buy';
+import { post as mcpForQaEngineers } from './mcp-for-qa-engineers-guide';
 
 // Original posts
 const introducingQaskills: BlogPost = {
@@ -185,10 +190,35 @@ export const posts: Record<string, BlogPost> = {
   'playwright-tutorial-beginners-2026': playwrightTutorial,
   'cicd-testing-pipeline-github-actions': cicdPipeline,
   'ai-test-automation-tools-2026': aiTestAutomation,
+  'vibe-testing-ai-first-qa-guide': vibeTestingGuide,
+  'playwright-test-agents-claude-code': playwrightTestAgents,
+  'testing-ai-generated-code-sdet-playbook': testingAiGeneratedCode,
+  'autonomous-testing-agents-build-vs-buy': autonomousTestingBuildVsBuy,
+  'mcp-for-qa-engineers-guide': mcpForQaEngineers,
 };
 
 // Ordered list for the blog listing page (newest first)
 export const postList = [
+  {
+    slug: 'vibe-testing-ai-first-qa-guide',
+    ...vibeTestingGuide,
+  },
+  {
+    slug: 'playwright-test-agents-claude-code',
+    ...playwrightTestAgents,
+  },
+  {
+    slug: 'testing-ai-generated-code-sdet-playbook',
+    ...testingAiGeneratedCode,
+  },
+  {
+    slug: 'autonomous-testing-agents-build-vs-buy',
+    ...autonomousTestingBuildVsBuy,
+  },
+  {
+    slug: 'mcp-for-qa-engineers-guide',
+    ...mcpForQaEngineers,
+  },
   {
     slug: 'ai-test-automation-tools-2026',
     ...aiTestAutomation,
